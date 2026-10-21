@@ -25,7 +25,7 @@ export const dashboardStats = [
     id: "habits",
     label: "Hábitos",
     value: "5 / 7",
-    detail: "esta semana",
+    detail: "completados hoy",
     color: "purple",
   },
 ];

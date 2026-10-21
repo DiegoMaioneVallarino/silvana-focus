@@ -9,13 +9,15 @@ import { AppShell } from "../components/layout/AppShell";
 
 import { DashboardPage } from "../pages/DashboardPage";
 import { GoalsPage } from "../pages/GoalsPage";
-import { ProjectPage } from "../pages/ProjectPage";
 import { CalendarPage } from "../pages/CalendarPage";
 import { HabitsPage } from "../pages/HabitsPage";
 import { FinancesPage } from "../pages/FinancesPage";
 import { AcademyPage } from "../pages/AcademyPage";
 import { StatisticsPage } from "../pages/StatisticsPage";
 import { TasksPage } from "../pages/TasksPage";
+import { ProjectsPage } from "../pages/ProjectsPage";
+import { ProjectDetailPage } from "../pages/ProjectDetailPage";
+import { ProgressPage } from "../pages/ProgressPage";
 
 export default function App() {
   return (
@@ -24,9 +26,11 @@ export default function App() {
         <Route element={<AppShell />}>
           <Route path="/" element={<DashboardPage />} />
           <Route path="/goals" element={<GoalsPage />} />
-          <Route path="/projects" element={<ProjectPage />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/habits" element={<HabitsPage />} />
+          <Route path="projects" element={<ProjectsPage />} />
+            <Route path="projects/:projectId" element={<ProjectDetailPage />}/>
+            <Route path="progress" element={<ProgressPage />} />
           <Route path="tasks" element={<TasksPage />} />
           <Route path="/finances" element={<FinancesPage />} />
           <Route path="/academy" element={<AcademyPage />} />

@@ -10,6 +10,9 @@ import { dashboardStats } from "../data/dashboard.data";
 import { useActivityStore } from "../../activity/activity.store";
 import { useTasksStore } from "../../tasks/tasks.store";
 
+import { useProjectsStore } from "../../projects/projects.store";
+import { useHabitsStore } from "../../habits/habits.store";
+import { getHabitStats } from "../../habits/habits.utils";
 import {
   getTodaySessions,
   getTotalSeconds,
@@ -37,7 +40,24 @@ const focusTime = formatDuration(
 );
 
 const tasks = useTasksStore((state) => state.tasks);
+const habits = useHabitsStore(
+  (state) => state.habits
+);
 
+const activeHabits = habits.filter(
+  (habit) => !habit.archivedAt
+);
+
+const scheduledHabits = activeHabits.filter(
+  (habit) => getHabitStats(habit).scheduledToday
+);
+
+const completedHabits = scheduledHabits.filter(
+  (habit) => getHabitStats(habit).completedToday
+);
+
+const habitsValue =
+  `${completedHabits.length}/${scheduledHabits.length}`;
 const completedTasks = tasks.filter(
   (task) => task.status === "completed"
 ).length;
@@ -49,7 +69,13 @@ const tasksValue = `${completedTasks} / ${tasks.length}`;
         const Icon = icons[
           stat.id as keyof typeof icons
         ];
+const projects = useProjectsStore(
+  (state) => state.projects
+);
 
+const activeProjects = projects.filter(
+  (project) => project.status === "active"
+).length;
         return (
           <div
             key={stat.id}
@@ -64,12 +90,16 @@ const tasksValue = `${completedTasks} / ${tasks.length}`;
                 {stat.label}
               </span>
 
-               <strong>
+                            <strong>
                 {stat.id === "focus"
                     ? focusTime
                     : stat.id === "tasks"
                     ? tasksValue
-                    : stat.value}
+                    : stat.id === "projects"
+                        ? activeProjects
+                        : stat.id === "habits"
+                        ? habitsValue
+                        : stat.value}
                 </strong>
               <small>{stat.detail}</small>
             </div>

@@ -11,7 +11,8 @@ import {
   ChartNoAxesCombined,
   ListTodo,
   Flame,
-  Settings
+  Settings,
+  Trophy
 } from "lucide-react";
 
 import "./Sidebar.css";
@@ -22,6 +23,7 @@ const navigation = [
   { label: "Objetivos", path: "/goals", icon: Target },
   { label: "Proyectos", path: "/projects", icon: FolderKanban },
   { label: "Tareas", path: "/tasks", icon: ListTodo },
+  {label: "Mi progreso",path: "/progress",icon: Trophy,},
   { label: "Hábitos", path: "/habits", icon: Heart },
   { label: "Finanzas", path: "/finances", icon: Wallet },
   { label: "Academia", path: "/academy", icon: GraduationCap },

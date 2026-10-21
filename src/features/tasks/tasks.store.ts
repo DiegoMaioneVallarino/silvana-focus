@@ -10,11 +10,31 @@ import type {
 
 interface TasksState {
   tasks: Task[];
+
   addTask: (input: CreateTaskInput) => void;
-  updateStatus: (id: string, status: TaskStatus) => void;
+
+  updateStatus: (
+    id: string,
+    status: TaskStatus
+  ) => void;
+
   deleteTask: (id: string) => void;
-  addSubtask: (taskId: string, title: string) => void;
-  toggleSubtask: (taskId: string, subtaskId: string) => void;
+
+  addSubtask: (
+    taskId: string,
+    title: string
+  ) => void;
+
+  toggleSubtask: (
+    taskId: string,
+    subtaskId: string
+  ) => void;
+
+  // Vincular o desvincular una tarea de un proyecto
+  setTaskProject: (
+    taskId: string,
+    projectId: string | null
+  ) => void;
 }
 
 export const useTasksStore = create<TasksState>()(
@@ -22,6 +42,7 @@ export const useTasksStore = create<TasksState>()(
     (set) => ({
       tasks: [],
 
+      // Crear tarea
       addTask: (input) =>
         set((state) => ({
           tasks: [
@@ -33,10 +54,12 @@ export const useTasksStore = create<TasksState>()(
               subtasks: [],
               createdAt: new Date().toISOString(),
               completedAt: null,
+              projectId: input.projectId ?? null,
             },
           ],
         })),
 
+      // Cambiar estado de tarea
       updateStatus: (id, status) =>
         set((state) => ({
           tasks: state.tasks.map((task) =>
@@ -54,6 +77,7 @@ export const useTasksStore = create<TasksState>()(
           ),
         })),
 
+      // Eliminar tarea
       deleteTask: (id) =>
         set((state) => ({
           tasks: state.tasks.filter(
@@ -61,6 +85,7 @@ export const useTasksStore = create<TasksState>()(
           ),
         })),
 
+      // Añadir subtarea
       addSubtask: (taskId, title) =>
         set((state) => ({
           tasks: state.tasks.map((task) =>
@@ -80,6 +105,7 @@ export const useTasksStore = create<TasksState>()(
           ),
         })),
 
+      // Completar o desmarcar subtarea
       toggleSubtask: (taskId, subtaskId) =>
         set((state) => ({
           tasks: state.tasks.map((task) =>
@@ -98,7 +124,22 @@ export const useTasksStore = create<TasksState>()(
               : task
           ),
         })),
+
+      // NUEVO: asociar una tarea a un proyecto
+      setTaskProject: (taskId, projectId) =>
+        set((state) => ({
+          tasks: state.tasks.map((task) =>
+            task.id === taskId
+              ? {
+                  ...task,
+                  projectId,
+                }
+              : task
+          ),
+        })),
     }),
-    { name: "silvana-tasks" }
+    {
+      name: "silvana-tasks",
+    }
   )
 );

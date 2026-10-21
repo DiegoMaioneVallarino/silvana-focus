@@ -1,0 +1,289 @@
+
+.sf-progress-page {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  width: 100%;
+}
+
+.sf-progress-header h2 {
+  margin: 0 0 6px;
+  font-size: 27px;
+  letter-spacing: -0.8px;
+}
+
+.sf-progress-header p {
+  margin: 0;
+}
+
+.sf-level-card {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 30px;
+}
+
+.sf-level-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.sf-level-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 68px;
+  height: 68px;
+  border-radius: 19px;
+  background: #f1eaff;
+  color: #873cff;
+}
+
+.sf-progress-eyebrow {
+  color: #873cff;
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 1px;
+}
+
+.sf-level-header h2 {
+  margin: 7px 0;
+  color: #172033;
+  font-size: 25px;
+  letter-spacing: -0.7px;
+}
+
+.sf-level-header p {
+  margin: 0;
+  color: #7c8eae;
+  font-size: 13px;
+}
+
+.sf-level-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sf-level-progress-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.sf-level-progress-label span {
+  color: #7c8eae;
+}
+
+.sf-level-progress-track {
+  overflow: hidden;
+  height: 12px;
+  border-radius: 100px;
+  background: #eee9f7;
+}
+
+.sf-level-progress-track > div {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    #873cff,
+    #b783ff
+  );
+  transition: width 250ms ease;
+}
+
+.sf-level-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.sf-level-stats > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 18px;
+  border-radius: 14px;
+  background: #f7f9fd;
+}
+
+.sf-level-stats strong {
+  font-size: 25px;
+  letter-spacing: -0.6px;
+}
+
+.sf-level-stats span {
+  color: #7c8eae;
+  font-size: 12px;
+}
+
+.sf-progress-achievements {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sf-progress-section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sf-progress-section-title > div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.sf-progress-section-title h3,
+.sf-xp-history h3 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.sf-progress-section-title > span {
+  color: #7c8eae;
+  font-size: 13px;
+}
+
+.sf-achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.sf-achievement-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 20px;
+}
+
+.sf-achievement-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  background: #f1eaff;
+  color: #873cff;
+}
+
+.sf-achievement-card.locked {
+  opacity: 0.6;
+}
+
+.sf-achievement-card.locked .sf-achievement-icon {
+  background: #f1f3f7;
+  color: #97a3b6;
+}
+
+.sf-achievement-card h4 {
+  margin: 2px 0 6px;
+  font-size: 14px;
+}
+
+.sf-achievement-card p {
+  margin: 0 0 11px;
+  color: #7c8eae;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.sf-achievement-card span {
+  color: #873cff;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.sf-achievement-card.locked span {
+  color: #97a3b6;
+}
+
+.sf-xp-history {
+  padding: 24px;
+}
+
+.sf-xp-history h3 {
+  margin-bottom: 20px;
+}
+
+.sf-xp-history-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.sf-xp-history-item {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 15px 0;
+  border-bottom: 1px solid #e8edf6;
+}
+
+.sf-xp-history-item:last-child {
+  border-bottom: 0;
+}
+
+.sf-xp-history-item.inactive {
+  opacity: 0.5;
+}
+
+.sf-xp-history-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 39px;
+  height: 39px;
+  border-radius: 11px;
+  background: #fff0e8;
+  color: #ff5a12;
+}
+
+.sf-xp-history-description {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.sf-xp-history-description strong {
+  font-size: 13px;
+}
+
+.sf-xp-history-description span {
+  color: #7c8eae;
+  font-size: 11px;
+}
+
+.sf-xp-history-amount {
+  color: #20b879;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+  .sf-level-card {
+    padding: 20px;
+  }
+
+  .sf-level-header h2 {
+    font-size: 20px;
+  }
+
+  .sf-achievements-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 450px) {
+  .sf-level-stats {
+    grid-template-columns: 1fr;
+  }
+}

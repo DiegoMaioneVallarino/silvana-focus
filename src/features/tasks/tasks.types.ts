@@ -23,9 +23,13 @@ export interface Task {
   subtasks: Subtask[];
   createdAt: string;
   completedAt: string | null;
+  projectId: string | null;
 }
+
 
 export type CreateTaskInput = Pick<
   Task,
   "title" | "description" | "priority" | "dueDate" | "goalId"
->;
+> & {
+  projectId?: string | null;
+};
