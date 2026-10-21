@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+
 import {
   Link,
   useNavigate,
@@ -27,6 +28,7 @@ import { LearningPath } from "../features/academy/components/LearningPath";
 import { LessonViewer } from "../features/academy/components/LessonViewer";
 import { QuizViewer } from "../features/academy/components/QuizViewer";
 import { CourseContentEditor } from "../features/academy/components/CourseContentEditor";
+import { CourseMastery } from "../features/academy/components/CourseMastery";
 
 import "./AcademyPage.css";
 
@@ -50,8 +52,8 @@ export function CoursePage() {
     (state) => state.completeLesson
   );
 
-  const recordQuizAttempt = useAcademyStore(
-    (state) => state.recordQuizAttempt
+  const submitQuiz = useAcademyStore(
+    (state) => state.submitQuiz
   );
 
   const [selectedLesson, setSelectedLesson] =
@@ -68,7 +70,12 @@ export function CoursePage() {
     return (
       <div className="sf-academy-page">
         <h2>Curso no encontrado</h2>
-        <Link to="/academy">
+
+        <Link
+          to="/academy"
+          className="sf-academy-back"
+        >
+          <ArrowLeft size={17} />
           Volver a la Academia
         </Link>
       </div>
@@ -104,6 +111,7 @@ export function CoursePage() {
 
         <div>
           <h2>{course.title}</h2>
+
           <p>{course.description}</p>
 
           <div className="sf-course-progress">
@@ -115,10 +123,13 @@ export function CoursePage() {
             />
           </div>
 
-          <small>{percentage}% completado</small>
+          <small>
+            {percentage}% completado
+          </small>
         </div>
 
         <button
+          type="button"
           className="sf-academy-secondary"
           onClick={() => {
             setEditorOpen(!editorOpen);
@@ -126,6 +137,7 @@ export function CoursePage() {
           }}
         >
           <Settings2 size={17} />
+
           {editorOpen
             ? "Ver curso"
             : "Editar contenido"}
@@ -134,9 +146,12 @@ export function CoursePage() {
 
       {editorOpen ? (
         <>
-          <CourseContentEditor course={course} />
+          <CourseContentEditor
+            course={course}
+          />
 
           <button
+            type="button"
             className="sf-academy-danger"
             onClick={() => {
               if (
@@ -158,14 +173,16 @@ export function CoursePage() {
           <QuizViewer
             key={selectedLesson.id}
             lesson={selectedLesson}
-            onSubmit={(score) =>
-              recordQuizAttempt(
+            onSubmit={(answers) =>
+              submitQuiz(
                 course.id,
                 selectedLesson.id,
-                score
+                answers
               )
             }
-            onClose={() => setSelectedLesson(null)}
+            onClose={() =>
+              setSelectedLesson(null)
+            }
           />
         ) : (
           <LessonViewer
@@ -179,7 +196,9 @@ export function CoursePage() {
 
               setSelectedLesson(null);
             }}
-            onClose={() => setSelectedLesson(null)}
+            onClose={() =>
+              setSelectedLesson(null)
+            }
           />
         )
       ) : (
@@ -197,6 +216,12 @@ export function CoursePage() {
               setSelectedLesson(lesson);
             }
           }}
+        />
+      )}
+
+      {!editorOpen && (
+        <CourseMastery
+          course={course}
         />
       )}
     </div>

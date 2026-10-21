@@ -1,13 +1,25 @@
 
 import { useState } from "react";
-import { CheckCircle2, RotateCcw } from "lucide-react";
+
+import {
+  CheckCircle2,
+  XCircle,
+  RotateCcw,
+  ArrowRight,
+} from "lucide-react";
 
 import type { Lesson } from "../academy.types";
-import { gradeQuiz } from "../academy.utils";
+
+interface QuizResult {
+  score: number;
+  passed: boolean;
+}
 
 interface QuizViewerProps {
   lesson: Lesson;
-  onSubmit: (score: number) => boolean;
+  onSubmit: (
+    answers: Record<string, number>
+  ) => QuizResult | null;
   onClose: () => void;
 }
 
@@ -20,10 +32,21 @@ export function QuizViewer({
     Record<string, number>
   >({});
 
-  const [result, setResult] = useState<{
-    score: number;
-    passed: boolean;
-  } | null>(null);
+  const [result, setResult] =
+    useState<QuizResult | null>(null);
+
+  const [onlyIncorrect, setOnlyIncorrect] =
+    useState(false);
+
+  const incorrectQuestions = lesson.questions.filter(
+    (question) =>
+      answers[question.id] !== question.correctOption
+  );
+
+  const visibleQuestions =
+    onlyIncorrect && result
+      ? incorrectQuestions
+      : lesson.questions;
 
   const allAnswered = lesson.questions.every(
     (question) =>
@@ -33,25 +56,23 @@ export function QuizViewer({
   function handleSubmit() {
     if (!allAnswered) return;
 
-    const score = gradeQuiz(
-      lesson.questions,
-      answers
-    );
+    const nextResult = onSubmit(answers);
 
-    const passed = onSubmit(score);
-
-    setResult({ score, passed });
+    if (nextResult) {
+      setResult(nextResult);
+    }
   }
 
   function handleRetry() {
     setAnswers({});
     setResult(null);
+    setOnlyIncorrect(false);
   }
 
   return (
     <div className="sf-quiz-viewer sf-card">
       <div className="sf-lesson-viewer-header">
-        <span>Evaluación</span>
+        <span>Evaluación interactiva</span>
 
         <button onClick={onClose}>
           Cerrar
@@ -61,84 +82,150 @@ export function QuizViewer({
       <h2>{lesson.title}</h2>
 
       <p className="sf-muted">
-        Necesitas {lesson.passingScore}% para aprobar.
+        Calificación mínima: {lesson.passingScore}%
       </p>
 
-      {lesson.questions.map((question, index) => (
+      {result && (
         <div
-          key={question.id}
-          className="sf-quiz-question"
+          className={`sf-quiz-feedback ${
+            result.passed ? "passed" : "failed"
+          }`}
         >
-          <h4>
-            {index + 1}. {question.question}
-          </h4>
-
-          <div className="sf-quiz-options">
-            {question.options.map((option, optionIndex) => (
-              <button
-                key={optionIndex}
-                type="button"
-                disabled={result !== null}
-                className={
-                  answers[question.id] === optionIndex
-                    ? "selected"
-                    : ""
-                }
-                onClick={() =>
-                  setAnswers((current) => ({
-                    ...current,
-                    [question.id]: optionIndex,
-                  }))
-                }
-              >
-                {option}
-              </button>
-            ))}
-          </div>
-
-          {result && (
-            <p className="sf-quiz-explanation">
-              {question.explanation}
-            </p>
+          {result.passed ? (
+            <CheckCircle2 size={26} />
+          ) : (
+            <XCircle size={26} />
           )}
+
+          <div>
+            <strong>
+              {result.passed
+                ? "¡Evaluación aprobada!"
+                : "Todavía puedes mejorar"}
+            </strong>
+
+            <p>
+              Obtuviste {result.score}%.
+            </p>
+          </div>
         </div>
-      ))}
+      )}
+
+      {visibleQuestions.map((question, index) => {
+        const selected = answers[question.id];
+
+        const correct =
+          selected === question.correctOption;
+
+        return (
+          <div
+            key={question.id}
+            className="sf-quiz-question"
+          >
+            <h4>
+              {index + 1}. {question.question}
+            </h4>
+
+            <div className="sf-quiz-options">
+              {question.options.map(
+                (option, optionIndex) => {
+                  const isSelected =
+                    selected === optionIndex;
+
+                  const isCorrect =
+                    optionIndex ===
+                    question.correctOption;
+
+                  let className =
+                    isSelected ? "selected" : "";
+
+                  if (result && isCorrect) {
+                    className += " correct";
+                  }
+
+                  if (
+                    result &&
+                    isSelected &&
+                    !isCorrect
+                  ) {
+                    className += " incorrect";
+                  }
+
+                  return (
+                    <button
+                      key={optionIndex}
+                      type="button"
+                      disabled={result !== null}
+                      className={className}
+                      onClick={() =>
+                        setAnswers((current) => ({
+                          ...current,
+                          [question.id]: optionIndex,
+                        }))
+                      }
+                    >
+                      {option}
+                    </button>
+                  );
+                }
+              )}
+            </div>
+
+            {result && (
+              <div
+                className={`sf-question-feedback ${
+                  correct ? "correct" : "incorrect"
+                }`}
+              >
+                {correct ? (
+                  <CheckCircle2 size={17} />
+                ) : (
+                  <XCircle size={17} />
+                )}
+
+                <span>
+                  {question.explanation ||
+                    (correct
+                      ? "Respuesta correcta."
+                      : "Revisa la respuesta correcta.")}
+                </span>
+              </div>
+            )}
+          </div>
+        );
+      })}
 
       {result ? (
-        <div className="sf-quiz-result">
-          <CheckCircle2
-            size={25}
-            color={
-              result.passed
-                ? "#20b879"
-                : "#ff5a12"
-            }
-          />
+        <div className="sf-quiz-result-actions">
+          {!result.passed &&
+            incorrectQuestions.length > 0 && (
+              <button
+                className="sf-academy-secondary"
+                onClick={() =>
+                  setOnlyIncorrect(!onlyIncorrect)
+                }
+              >
+                {onlyIncorrect
+                  ? "Ver todas las preguntas"
+                  : "Revisar errores"}
+              </button>
+            )}
 
-          <h3>
-            {result.passed
-              ? "¡Evaluación aprobada!"
-              : "Sigue practicando"}
-          </h3>
+          <button
+            className="sf-academy-secondary"
+            onClick={handleRetry}
+          >
+            <RotateCcw size={16} />
+            Reintentar
+          </button>
 
-          <strong>{result.score}%</strong>
-
-          {result.passed ? (
-            <button
-              className="sf-academy-primary"
-              onClick={onClose}
-            >
-              Continuar
-            </button>
-          ) : (
-            <button
-              className="sf-academy-primary"
-              onClick={handleRetry}
-            >
-              <RotateCcw size={17} />
-              Reintentar
-            </button>
-          )}
+          <button
+            className="sf-academy-primary"
+            onClick={onClose}
+          >
+            <ArrowRight size={16} />
+            Continuar
+          </button>
         </div>
       ) : (
         <button
@@ -146,7 +233,7 @@ export function QuizViewer({
           disabled={!allAnswered}
           onClick={handleSubmit}
         >
-          Calificar evaluación
+          Entregar evaluación
         </button>
       )}
     </div>

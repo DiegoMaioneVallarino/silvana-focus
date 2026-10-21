@@ -55,3 +55,28 @@ export type CreateCourseInput = Pick<
 >;
 
 export type CreateLessonInput = Omit<Lesson, "id">;
+
+export interface QuizAttempt {
+  id: string;
+  courseId: string;
+  lessonId: string;
+  score: number;
+  passed: boolean;
+  answers: Record<string, number>;
+  completedAt: string;
+}
+
+export type MasteryStatus =
+  | "not_started"
+  | "learning"
+  | "practicing"
+  | "mastered";
+
+export interface UnitMastery {
+  unitId: string;
+  title: string;
+  completedLessons: number;
+  totalLessons: number;
+  averageQuizScore: number | null;
+  status: MasteryStatus;
+}
