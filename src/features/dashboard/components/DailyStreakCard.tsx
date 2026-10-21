@@ -10,7 +10,7 @@ import {
 } from "../../streaks/streaks.utils";
 
 import { useGoalsStore } from "../../goals/goals.store";
-
+import "./DailyStreakCard.css";
 const dayLabels = ["L", "M", "X", "J", "V", "S", "D"];
 
 export function DailyStreakCard() {

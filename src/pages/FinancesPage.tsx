@@ -21,6 +21,7 @@ import { TransactionForm } from "../features/finances/components/TransactionForm
 import { TransactionList } from "../features/finances/components/TransactionList";
 import { ExpenseBreakdown } from "../features/finances/components/ExpenseBreakdown";
 import { BudgetPanel } from "../features/finances/components/BudgetPanel";
+import { FinancialGoalsPanel } from "../features/finances/components/FinancialGoalsPanel";
 
 import "./FinancesPage.css";
 
@@ -149,7 +150,7 @@ export function FinancesPage() {
         <ExpenseBreakdown
           data={breakdown}
         />
-
+    <FinancialGoalsPanel />
         <BudgetPanel
           month={month}
           transactions={monthlyTransactions}
