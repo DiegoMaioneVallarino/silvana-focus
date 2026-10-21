@@ -1,13 +1,19 @@
 
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, Plus, Trash2 } from "lucide-react";
+import {
+  Link,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 
-import type { FormEvent } from "react";
+import {
+  ArrowLeft,
+  Settings2,
+  Trash2,
+} from "lucide-react";
 
 import type {
   Lesson,
-  CreateLessonInput,
 } from "../features/academy/academy.types";
 
 import { useAcademyStore } from "../features/academy/academy.store";
@@ -20,31 +26,30 @@ import {
 import { LearningPath } from "../features/academy/components/LearningPath";
 import { LessonViewer } from "../features/academy/components/LessonViewer";
 import { QuizViewer } from "../features/academy/components/QuizViewer";
+import { CourseContentEditor } from "../features/academy/components/CourseContentEditor";
 
 import "./AcademyPage.css";
 
 export function CoursePage() {
   const { courseId } = useParams();
+  const navigate = useNavigate();
 
   const courses = useAcademyStore(
     (state) => state.courses
   );
+
   const progress = useAcademyStore(
     (state) => state.progress
   );
 
-  const addUnit = useAcademyStore(
-    (state) => state.addUnit
-  );
-  const addLesson = useAcademyStore(
-    (state) => state.addLesson
-  );
   const deleteCourse = useAcademyStore(
     (state) => state.deleteCourse
   );
+
   const completeLesson = useAcademyStore(
     (state) => state.completeLesson
   );
+
   const recordQuizAttempt = useAcademyStore(
     (state) => state.recordQuizAttempt
   );
@@ -52,15 +57,8 @@ export function CoursePage() {
   const [selectedLesson, setSelectedLesson] =
     useState<Lesson | null>(null);
 
-  const [unitTitle, setUnitTitle] = useState("");
-  const [unitDescription, setUnitDescription] =
-    useState("");
-
-  const [lessonTitle, setLessonTitle] = useState("");
-  const [lessonContent, setLessonContent] =
-    useState("");
-  const [selectedUnitId, setSelectedUnitId] =
-    useState("");
+  const [editorOpen, setEditorOpen] =
+    useState(false);
 
   const course = courses.find(
     (item) => item.id === courseId
@@ -78,59 +76,11 @@ export function CoursePage() {
   }
 
   const courseProgress = progress[course.id];
+
   const percentage = getCourseCompletion(
     course,
     courseProgress
   );
-
-  function handleAddUnit(
-    event: FormEvent<HTMLFormElement>
-  ) {
-    event.preventDefault();
-
-    if (!unitTitle.trim()) return;
-
-    addUnit(
-      course!.id,
-      unitTitle.trim(),
-      unitDescription.trim()
-    );
-
-    setUnitTitle("");
-    setUnitDescription("");
-  }
-
-  function handleAddLesson(
-    event: FormEvent<HTMLFormElement>
-  ) {
-    event.preventDefault();
-
-    if (
-      !selectedUnitId ||
-      !lessonTitle.trim() ||
-      !lessonContent.trim()
-    ) {
-      return;
-    }
-
-    const input: CreateLessonInput = {
-      title: lessonTitle.trim(),
-      description: "",
-      type: "reading",
-      content: lessonContent.trim(),
-      questions: [],
-      passingScore: 0,
-    };
-
-    addLesson(
-      course!.id,
-      selectedUnitId,
-      input
-    );
-
-    setLessonTitle("");
-    setLessonContent("");
-  }
 
   return (
     <div className="sf-academy-page">
@@ -167,9 +117,43 @@ export function CoursePage() {
 
           <small>{percentage}% completado</small>
         </div>
+
+        <button
+          className="sf-academy-secondary"
+          onClick={() => {
+            setEditorOpen(!editorOpen);
+            setSelectedLesson(null);
+          }}
+        >
+          <Settings2 size={17} />
+          {editorOpen
+            ? "Ver curso"
+            : "Editar contenido"}
+        </button>
       </header>
 
-      {selectedLesson ? (
+      {editorOpen ? (
+        <>
+          <CourseContentEditor course={course} />
+
+          <button
+            className="sf-academy-danger"
+            onClick={() => {
+              if (
+                window.confirm(
+                  "¿Eliminar este curso y todo su progreso?"
+                )
+              ) {
+                deleteCourse(course.id);
+                navigate("/academy");
+              }
+            }}
+          >
+            <Trash2 size={16} />
+            Eliminar curso
+          </button>
+        </>
+      ) : selectedLesson ? (
         selectedLesson.type === "quiz" ? (
           <QuizViewer
             key={selectedLesson.id}
@@ -215,102 +199,6 @@ export function CoursePage() {
           }}
         />
       )}
-
-      <section className="sf-academy-editor sf-card">
-        <h3>Administrar contenido</h3>
-
-        <form onSubmit={handleAddUnit}>
-          <h4>Nueva unidad</h4>
-
-          <input
-            placeholder="Nombre de la unidad"
-            value={unitTitle}
-            onChange={(event) =>
-              setUnitTitle(event.target.value)
-            }
-            required
-          />
-
-          <input
-            placeholder="Descripción"
-            value={unitDescription}
-            onChange={(event) =>
-              setUnitDescription(event.target.value)
-            }
-          />
-
-          <button className="sf-academy-primary">
-            <Plus size={16} />
-            Agregar unidad
-          </button>
-        </form>
-
-        <form onSubmit={handleAddLesson}>
-          <h4>Nueva lección de lectura</h4>
-
-          <select
-            value={selectedUnitId}
-            onChange={(event) =>
-              setSelectedUnitId(event.target.value)
-            }
-            required
-          >
-            <option value="">
-              Selecciona una unidad
-            </option>
-
-            {course.units.map((unit) => (
-              <option
-                key={unit.id}
-                value={unit.id}
-              >
-                {unit.title}
-              </option>
-            ))}
-          </select>
-
-          <input
-            placeholder="Título de la lección"
-            value={lessonTitle}
-            onChange={(event) =>
-              setLessonTitle(event.target.value)
-            }
-            required
-          />
-
-          <textarea
-            rows={5}
-            placeholder="Contenido de la lección"
-            value={lessonContent}
-            onChange={(event) =>
-              setLessonContent(event.target.value)
-            }
-            required
-          />
-
-          <button className="sf-academy-primary">
-            <Plus size={16} />
-            Agregar lección
-          </button>
-        </form>
-
-        <button
-          className="sf-academy-danger"
-          onClick={() => {
-            if (
-              window.confirm(
-                "¿Eliminar este curso y todo su progreso?"
-              )
-            ) {
-              deleteCourse(course.id);
-              window.location.href = "/academy";
-            }
-          }}
-        >
-          <Trash2 size={16} />
-          Eliminar curso
-        </button>
-      </section>
     </div>
   );
 }
