@@ -1,5 +1,4 @@
 
-import { useEffect } from "react";
 import { Award } from "lucide-react";
 
 import { useProgressionStore } from "../features/progression/progression.store";
@@ -19,12 +18,6 @@ import { LevelCard } from "../features/progression/components/LevelCard";
 import { XPHistory } from "../features/progression/components/XPHistory";
 import { AchievementCard } from "../features/progression/components/AchievementCard";
 
-import { useTasksStore } from "../features/tasks/tasks.store";
-import { useHabitsStore } from "../features/habits/habits.store";
-import { useProjectsStore } from "../features/projects/projects.store";
-import { useGoalsStore } from "../features/goals/goals.store";
-import { useActivityStore } from "../features/activity/activity.store";
-
 import "./ProgressPage.css";
 
 export function ProgressPage() {
@@ -36,30 +29,6 @@ export function ProgressPage() {
     (state) => state.achievements
   );
 
-  useEffect(() => {
-    const sync = () => {
-      useProgressionStore
-        .getState()
-        .syncProgression();
-    };
-
-    sync();
-
-    const unsubscribers = [
-      useTasksStore.subscribe(sync),
-      useHabitsStore.subscribe(sync),
-      useProjectsStore.subscribe(sync),
-      useGoalsStore.subscribe(sync),
-      useActivityStore.subscribe(sync),
-    ];
-
-    return () => {
-      unsubscribers.forEach((unsubscribe) =>
-        unsubscribe()
-      );
-    };
-  }, []);
-
   const totalXP = getActiveXP(rewards);
   const lifetimeXP = getLifetimeXP(rewards);
   const todayXP = getTodayXP(rewards);
@@ -70,7 +39,8 @@ export function ProgressPage() {
     (definition) => ({
       ...definition,
       unlocked: !!achievements[definition.id],
-      unlockedAt: achievements[definition.id] ?? null,
+      unlockedAt:
+        achievements[definition.id] ?? null,
     })
   );
 
@@ -83,6 +53,7 @@ export function ProgressPage() {
       <header className="sf-progress-header">
         <div>
           <h2>Mi progreso</h2>
+
           <p className="sf-muted">
             Cada pequeño avance cuenta.
           </p>
@@ -98,7 +69,11 @@ export function ProgressPage() {
       <section className="sf-progress-achievements">
         <div className="sf-progress-section-title">
           <div>
-            <Award size={20} color="#873cff" />
+            <Award
+              size={20}
+              color="#873cff"
+            />
+
             <h3>Logros</h3>
           </div>
 

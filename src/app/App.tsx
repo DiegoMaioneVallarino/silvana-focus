@@ -11,30 +11,82 @@ import { DashboardPage } from "../pages/DashboardPage";
 import { GoalsPage } from "../pages/GoalsPage";
 import { CalendarPage } from "../pages/CalendarPage";
 import { HabitsPage } from "../pages/HabitsPage";
-import { FinancesPage } from "../pages/FinancesPage";
-import { AcademyPage } from "../pages/AcademyPage";
-import { StatisticsPage } from "../pages/StatisticsPage";
 import { TasksPage } from "../pages/TasksPage";
+
 import { ProjectsPage } from "../pages/ProjectsPage";
 import { ProjectDetailPage } from "../pages/ProjectDetailPage";
+
 import { ProgressPage } from "../pages/ProgressPage";
+import { StatisticsPage } from "../pages/StatisticsPage";
+
+import { FinancesPage } from "../pages/FinancesPage";
+import { AcademyPage } from "../pages/AcademyPage";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<AppShell />}>
-          <Route path="/" element={<DashboardPage />} />
-          <Route path="/goals" element={<GoalsPage />} />
-          <Route path="/calendar" element={<CalendarPage />} />
-          <Route path="/habits" element={<HabitsPage />} />
-          <Route path="projects" element={<ProjectsPage />} />
-            <Route path="projects/:projectId" element={<ProjectDetailPage />}/>
-            <Route path="progress" element={<ProgressPage />} />
-          <Route path="tasks" element={<TasksPage />} />
-          <Route path="/finances" element={<FinancesPage />} />
-          <Route path="/academy" element={<AcademyPage />} />
-          <Route path="/statistics" element={<StatisticsPage />} />
+          {/* Dashboard */}
+          <Route
+            path="/"
+            element={<DashboardPage />}
+          />
+
+          {/* Productividad */}
+          <Route
+            path="goals"
+            element={<GoalsPage />}
+          />
+
+          <Route
+            path="calendar"
+            element={<CalendarPage />}
+          />
+
+          <Route
+            path="habits"
+            element={<HabitsPage />}
+          />
+
+          <Route
+            path="tasks"
+            element={<TasksPage />}
+          />
+
+          {/* Proyectos */}
+          <Route
+            path="projects"
+            element={<ProjectsPage />}
+          />
+
+          <Route
+            path="projects/:projectId"
+            element={<ProjectDetailPage />}
+          />
+
+          {/* Progreso y estadísticas */}
+          <Route
+            path="progress"
+            element={<ProgressPage />}
+          />
+
+          <Route
+            path="statistics"
+            element={<StatisticsPage />}
+          />
+
+          {/* Finanzas */}
+          <Route
+            path="finances"
+            element={<FinancesPage />}
+          />
+
+          {/* Academia */}
+          <Route
+            path="academy"
+            element={<AcademyPage />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
