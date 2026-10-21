@@ -20,6 +20,8 @@ import { useHabitsStore } from "../habits/habits.store";
 import { useProjectsStore } from "../projects/projects.store";
 import { useGoalsStore } from "../goals/goals.store";
 import { useActivityStore } from "../activity/activity.store";
+import { useAcademyStore } from "../academy/academy.store";
+
 
 import {
   getHabitStats,
@@ -135,7 +137,19 @@ function collectRewards(): RewardCandidate[] {
       });
     }
   }
+const academyProgress = useAcademyStore.getState().progress;
 
+for (const courseProgress of Object.values(academyProgress)) {
+  for (const lessonProgress of Object.values(
+    courseProgress.lessons
+  )) {
+    candidates.push({
+      source: "academy_lesson",
+      sourceId: `${courseProgress.courseId}:${lessonProgress.lessonId}`,
+      awardedAt: lessonProgress.completedAt,
+    });
+  }
+}
   return candidates;
 }
 

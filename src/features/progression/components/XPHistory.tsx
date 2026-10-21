@@ -5,6 +5,7 @@ import {
   Timer,
   Target,
   FolderCheck,
+  BookOpen
 } from "lucide-react";
 
 import type { XPReward } from "../progression.types";
@@ -19,6 +20,7 @@ const sourceLabels = {
   focus: "Sesión de enfoque",
   goal_stage: "Etapa de objetivo",
   project: "Proyecto finalizado",
+  academy_lesson: "Lección de Academia",
 };
 
 const sourceIcons = {
@@ -27,6 +29,7 @@ const sourceIcons = {
   focus: Timer,
   goal_stage: Target,
   project: FolderCheck,
+  academy_lesson: BookOpen,
 };
 
 export function XPHistory({

@@ -4,8 +4,9 @@ export type XPSource =
   | "habit"
   | "focus"
   | "goal_stage"
-  | "project";
-
+  | "project"
+  | "academy_lesson";
+  
 export interface XPReward {
   id: string;
   source: XPSource;

@@ -8,6 +8,8 @@ import { useHabitsStore } from "../../habits/habits.store";
 import { useProjectsStore } from "../../projects/projects.store";
 import { useGoalsStore } from "../../goals/goals.store";
 import { useActivityStore } from "../../activity/activity.store";
+import { useAcademyStore } from "../../academy/academy.store";
+
 
 export function ProgressionSync() {
   useEffect(() => {
@@ -17,13 +19,14 @@ export function ProgressionSync() {
         .syncProgression();
     };
 
-    const unsubscribers = [
-      useTasksStore.subscribe(sync),
-      useHabitsStore.subscribe(sync),
-      useProjectsStore.subscribe(sync),
-      useGoalsStore.subscribe(sync),
-      useActivityStore.subscribe(sync),
-    ];
+   const unsubscribers = [
+  useTasksStore.subscribe(sync),
+  useHabitsStore.subscribe(sync),
+  useProjectsStore.subscribe(sync),
+  useGoalsStore.subscribe(sync),
+  useActivityStore.subscribe(sync),
+  useAcademyStore.subscribe(sync),
+];
 
     sync();
 

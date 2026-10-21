@@ -21,6 +21,8 @@ import { StatisticsPage } from "../pages/StatisticsPage";
 
 import { FinancesPage } from "../pages/FinancesPage";
 import { AcademyPage } from "../pages/AcademyPage";
+import { CoursePage } from "../pages/CoursePage";
+
 
 export default function App() {
   return (
@@ -87,6 +89,10 @@ export default function App() {
             path="academy"
             element={<AcademyPage />}
           />
+          <Route
+                path="academy/:courseId"
+                element={<CoursePage />}
+                />
         </Route>
       </Routes>
     </BrowserRouter>

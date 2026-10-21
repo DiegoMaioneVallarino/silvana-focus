@@ -10,6 +10,7 @@ export const XP_REWARDS: Record<XPSource, number> = {
   focus: 10,
   goal_stage: 50,
   project: 100,
+  academy_lesson: 25,
 };
 
 export const MIN_FOCUS_SECONDS = 5 * 60;
