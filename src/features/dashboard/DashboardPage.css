@@ -423,3 +423,25 @@
     padding: 16px;
   }
 }
+
+
+.sf-stage-complete {
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: 9px;
+
+  background: linear-gradient(
+    135deg,
+    #ff8500,
+    #ff5a12
+  );
+
+  color: white;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.sf-stage-complete:hover {
+  filter: brightness(1.06);
+}
+

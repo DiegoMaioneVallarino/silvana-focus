@@ -1,0 +1,143 @@
+
+.sf-focus-timer {
+  padding: 24px;
+}
+
+.sf-focus-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sf-focus-heading h3 {
+  font-size: 17px;
+}
+
+.sf-focus-heading p {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+.sf-focus-clock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 28px 0;
+}
+
+.sf-focus-clock strong {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 750;
+  letter-spacing: -2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.sf-focus-clock span {
+  color: var(--color-muted);
+  font-size: 12px;
+}
+
+.sf-focus-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sf-focus-form input,
+.sf-focus-form select {
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 11px;
+  background: white;
+  color: var(--color-text);
+  outline: none;
+}
+
+.sf-focus-form button,
+.sf-focus-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 11px;
+  background: #ff5a12;
+  color: white;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.sf-focus-form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sf-focus-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+}
+
+.sf-focus-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sf-focus-buttons button.secondary {
+  background: #f1f3f9;
+  color: #536483;
+}
+
+
+.sf-activity-history {
+  padding: 24px;
+}
+
+.sf-activity-history h3 {
+  font-size: 17px;
+  margin-bottom: 18px;
+}
+
+.sf-activity-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.sf-activity-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.sf-activity-item > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.sf-activity-item strong {
+  font-size: 13px;
+}
+
+.sf-activity-item p {
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--color-muted);
+}
+
+.sf-activity-item button {
+  background: transparent;
+  color: #9ba7bd;
+}
+
+.sf-activity-item button:hover {
+  color: #f05b51;
+}

@@ -5,7 +5,8 @@ import { DailyStreakCard } from "../features/dashboard/components/DailyStreakCar
 import { TodaySchedule } from "../features/dashboard/components/TodaySchedule";
 import { ProjectsOverview } from "../features/dashboard/components/ProjectsOverview";
 import { UpcomingReminders } from "../features/dashboard/components/UpcomingReminders";
-
+import { FocusTimer } from "../features/activity/components/FocusTimer";
+import { ActivityHistory } from "../features/activity/components/ActivityHistory";
 import "../features/dashboard/DashboardPage.css";
 
 export function DashboardPage() {
@@ -19,10 +20,14 @@ export function DashboardPage() {
           <DailyStreakCard />
         </div>
 
-        <div className="sf-dashboard-center">
-          <ProjectsOverview />
-          <UpcomingReminders />
-        </div>
+        
+            <div className="sf-dashboard-center">
+            <FocusTimer />
+            <ProjectsOverview />
+            <ActivityHistory />
+            <UpcomingReminders />
+            </div>
+
 
         <div className="sf-dashboard-right">
           <TodaySchedule />

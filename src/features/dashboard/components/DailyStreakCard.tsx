@@ -1,17 +1,38 @@
 
-import { Flame } from "lucide-react";
+import { Flame, Check } from "lucide-react";
 
-const days = [
-  { label: "L", done: true },
-  { label: "M", done: true },
-  { label: "X", done: true },
-  { label: "J", done: true },
-  { label: "V", done: true },
-  { label: "S", done: false },
-  { label: "D", done: false },
-];
+import { useStreakStore } from "../../streaks/streaks.store";
+import {
+  calculateStreak,
+  getWeekDates,
+  toLocalDateKey,
+  fromLocalDateKey,
+} from "../../streaks/streaks.utils";
+
+import { useGoalsStore } from "../../goals/goals.store";
+
+const dayLabels = ["L", "M", "X", "J", "V", "S", "D"];
 
 export function DailyStreakCard() {
+  const records = useStreakStore((state) => state.records);
+  const settings = useStreakStore((state) => state.settings);
+  const logActivity = useStreakStore(
+    (state) => state.logActivity
+  );
+
+  const activeGoalId = useGoalsStore(
+    (state) => state.activeGoalId
+  );
+
+  const today = toLocalDateKey(new Date());
+  const week = getWeekDates();
+
+  const summary = calculateStreak(records, settings);
+
+  const activeDates = new Set(
+    records.map((record) => record.date)
+  );
+
   return (
     <section className="sf-card sf-streak">
       <div className="sf-section-header">
@@ -23,25 +44,64 @@ export function DailyStreakCard() {
 
       <div className="sf-streak-content">
         <div className="sf-streak-count">
-          <Flame size={34} fill="#ff8a00" />
-          <strong>12 días</strong>
+          <Flame
+            size={34}
+            fill={summary.current > 0 ? "#ff8a00" : "none"}
+            color="#ff8a00"
+          />
+
+          <strong>{summary.current} días</strong>
         </div>
 
         <div className="sf-streak-week">
-          {days.map((day, index) => (
-            <div key={index} className="sf-streak-day">
-              <span>{day.label}</span>
+          {week.map((date, index) => {
+            const completed = activeDates.has(date);
+            const restDay = settings.restDays.includes(
+              fromLocalDateKey(date).getDay()
+            );
 
-              <div
-                className={
-                  day.done
-                    ? "sf-streak-dot done"
-                    : "sf-streak-dot"
-                }
-              />
-            </div>
-          ))}
+            return (
+              <div className="sf-streak-day" key={date}>
+                <span>{dayLabels[index]}</span>
+
+                <div
+                  className={[
+                    "sf-streak-dot",
+                    completed ? "done" : "",
+                    restDay && !completed ? "rest" : "",
+                    date === today ? "today" : "",
+                  ].join(" ")}
+                  title={
+                    completed
+                      ? "Actividad registrada"
+                      : restDay
+                      ? "Descanso programado"
+                      : "Sin actividad"
+                  }
+                />
+              </div>
+            );
+          })}
         </div>
+      </div>
+
+      <div className="sf-streak-footer">
+        <span>
+          {summary.activeToday
+            ? "¡Ya registraste actividad hoy!"
+            : "Registra tu progreso de hoy."}
+        </span>
+
+        <button
+          type="button"
+          disabled={!activeGoalId || summary.activeToday}
+          onClick={() => {
+            if (activeGoalId) logActivity(activeGoalId);
+          }}
+        >
+          <Check size={15} />
+          Registrar día
+        </button>
       </div>
     </section>
   );
