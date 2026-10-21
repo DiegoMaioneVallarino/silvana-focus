@@ -1,0 +1,23 @@
+
+.sf-app {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sf-main {
+  flex: 1;
+  min-width: 0;
+  padding: 28px 32px 48px;
+}
+
+.sf-page {
+  width: 100%;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .sf-main {
+    padding: 20px 16px;
+  }
+}

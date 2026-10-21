@@ -1,0 +1,31 @@
+
+:root {
+  font-family: -apple-system, BlinkMacSystemFont,
+    "SF Pro Display", "Segoe UI", sans-serif;
+
+  color: #172033;
+  background: #f7f9fd;
+
+  --color-primary: #ff5a12;
+  --color-primary-light: #fff0e8;
+
+  --color-purple: #873cff;
+  --color-purple-light: #f1eaff;
+
+  --color-blue: #3d73ff;
+  --color-success: #20b879;
+
+  --color-text: #172033;
+  --color-muted: #7c8eae;
+
+  --color-background: #f7f9fd;
+  --color-surface: #ffffff;
+  --color-border: #e8edf6;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+
+  --shadow-card:
+    0 6px 24px rgba(30, 50, 90, 0.045);
+}
