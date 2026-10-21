@@ -15,6 +15,7 @@ import { HabitsPage } from "../pages/HabitsPage";
 import { FinancesPage } from "../pages/FinancesPage";
 import { AcademyPage } from "../pages/AcademyPage";
 import { StatisticsPage } from "../pages/StatisticsPage";
+import { TasksPage } from "../pages/TasksPage";
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/projects" element={<ProjectPage />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/habits" element={<HabitsPage />} />
+          <Route path="tasks" element={<TasksPage />} />
           <Route path="/finances" element={<FinancesPage />} />
           <Route path="/academy" element={<AcademyPage />} />
           <Route path="/statistics" element={<StatisticsPage />} />

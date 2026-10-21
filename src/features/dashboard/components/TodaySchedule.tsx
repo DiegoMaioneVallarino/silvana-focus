@@ -1,8 +1,20 @@
 
 import { Link } from "react-router-dom";
-import { todayActivities } from "../data/dashboard.data";
+
+import { useCalendarStore } from "../../calendar/calendar.store";
+import { toLocalDateKey } from "../../calendar/calendar.utils";
 
 export function TodaySchedule() {
+  const events = useCalendarStore((state) => state.events);
+
+  const today = toLocalDateKey(new Date());
+
+  const todayEvents = events
+    .filter((event) => event.date === today)
+    .sort((a, b) =>
+      a.startTime.localeCompare(b.startTime)
+    );
+
   return (
     <section className="sf-card sf-schedule">
       <div className="sf-section-header">
@@ -15,23 +27,35 @@ export function TodaySchedule() {
       </div>
 
       <div className="sf-schedule-list">
-        {todayActivities.map((activity) => (
-          <div
-            key={activity.id}
-            className="sf-schedule-item"
-          >
-            <span className="sf-schedule-time">
-              {activity.time}
-            </span>
-
+        {todayEvents.length === 0 ? (
+          <p className="sf-muted">
+            No tienes actividades programadas para hoy.
+          </p>
+        ) : (
+          todayEvents.map((event) => (
             <div
-              className={`sf-schedule-activity ${activity.category}`}
+              key={event.id}
+              className="sf-schedule-item"
             >
-              <strong>{activity.title}</strong>
-              <small>{activity.duration}</small>
+              <span className="sf-schedule-time">
+                {event.startTime}
+              </span>
+
+              <div
+                className={`sf-schedule-activity ${event.category}`}
+              >
+                <strong>
+                  {event.completed ? "✓ " : ""}
+                  {event.title}
+                </strong>
+
+                <small>
+                  {event.durationMinutes} min
+                </small>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </section>
   );

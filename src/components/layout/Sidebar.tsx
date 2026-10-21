@@ -9,8 +9,9 @@ import {
   Wallet,
   GraduationCap,
   ChartNoAxesCombined,
-  Settings,
+  ListTodo,
   Flame,
+  Settings
 } from "lucide-react";
 
 import "./Sidebar.css";
@@ -20,9 +21,11 @@ const navigation = [
   { label: "Agenda", path: "/calendar", icon: CalendarDays },
   { label: "Objetivos", path: "/goals", icon: Target },
   { label: "Proyectos", path: "/projects", icon: FolderKanban },
+  { label: "Tareas", path: "/tasks", icon: ListTodo },
   { label: "Hábitos", path: "/habits", icon: Heart },
   { label: "Finanzas", path: "/finances", icon: Wallet },
   { label: "Academia", path: "/academy", icon: GraduationCap },
+  { label: "Estadísticas", path: "/statistics", icon: ChartNoAxesCombined },
 ];
 
 export function Sidebar() {

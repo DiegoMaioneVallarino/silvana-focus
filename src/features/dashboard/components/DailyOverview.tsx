@@ -8,6 +8,7 @@ import {
 
 import { dashboardStats } from "../data/dashboard.data";
 import { useActivityStore } from "../../activity/activity.store";
+import { useTasksStore } from "../../tasks/tasks.store";
 
 import {
   getTodaySessions,
@@ -34,6 +35,14 @@ const todaySessions = getTodaySessions(sessions);
 const focusTime = formatDuration(
   getTotalSeconds(todaySessions)
 );
+
+const tasks = useTasksStore((state) => state.tasks);
+
+const completedTasks = tasks.filter(
+  (task) => task.status === "completed"
+).length;
+
+const tasksValue = `${completedTasks} / ${tasks.length}`;
   return (
     <div className="sf-stats-grid">
       {dashboardStats.map((stat) => {
@@ -55,8 +64,12 @@ const focusTime = formatDuration(
                 {stat.label}
               </span>
 
-                <strong>
-                {stat.id === "focus" ? focusTime : stat.value}
+               <strong>
+                {stat.id === "focus"
+                    ? focusTime
+                    : stat.id === "tasks"
+                    ? tasksValue
+                    : stat.value}
                 </strong>
               <small>{stat.detail}</small>
             </div>
