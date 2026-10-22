@@ -1,60 +1,471 @@
+/* ==========================================
+   SILVANA FOCUS — DASHBOARD
+   Layout original + widgets v0.15
+========================================== */
 
-.sf-streak-dot.rest {
-  background: #e9e3ff;
-  border-color: #bca8ff;
-}
-
-.sf-streak-dot.today {
-  outline: 2px solid #ffb27e;
-  outline-offset: 3px;
-}
-
-.sf-streak-footer {
+.sf-dashboard {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-
-  margin-top: 22px;
-  padding-top: 16px;
-
-  border-top: 1px solid var(--color-border);
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
 }
 
-.sf-streak-footer span {
+/* ==========================================
+   RESUMEN DIARIO
+========================================== */
+
+.sf-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.sf-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  padding: 20px;
+}
+
+.sf-stat-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  flex-shrink: 0;
+}
+
+.sf-stat-card.orange .sf-stat-icon {
+  background: #fff1e7;
+  color: #ff8500;
+}
+
+.sf-stat-card.green .sf-stat-icon {
+  background: #e6fbf1;
+  color: #20b879;
+}
+
+.sf-stat-card.blue .sf-stat-icon {
+  background: #eaf0ff;
+  color: #3d73ff;
+}
+
+.sf-stat-card.purple .sf-stat-icon {
+  background: #f3eaff;
+  color: #873cff;
+}
+
+.sf-stat-card strong,
+.sf-stat-card small,
+.sf-stat-label {
+  display: block;
+}
+
+.sf-stat-label {
   color: var(--color-muted);
   font-size: 12px;
 }
 
-.sf-streak-footer button {
+.sf-stat-card strong {
+  font-size: 23px;
+  letter-spacing: -0.7px;
+}
+
+.sf-stat-card small {
+  color: var(--color-muted);
+  font-size: 11px;
+}
+
+/* ==========================================
+   GRID PRINCIPAL — ORIGINAL
+========================================== */
+
+.sf-dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1.2fr 0.9fr;
+  gap: 16px;
+  align-items: start;
+  min-width: 0;
+}
+
+.sf-dashboard-left,
+.sf-dashboard-center,
+.sf-dashboard-right {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
 
-  padding: 10px 12px;
-  border-radius: 10px;
+/* ==========================================
+   ENCABEZADOS DE SECCIÓN
+========================================== */
 
-  background: #fff0e8;
-  color: #ff5a12;
+.sf-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 20px;
+}
 
+.sf-section-header h3 {
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: -0.5px;
+}
+
+.sf-section-header p {
+  margin-top: 4px;
+  color: #8193b5;
+  font-size: 13px;
+}
+
+.sf-section-header a {
   font-size: 12px;
-  font-weight: 650;
+  color: #4164a8;
   white-space: nowrap;
 }
 
-.sf-streak-footer button:hover:not(:disabled) {
-  background: #ffe3d3;
+.sf-journey,
+.sf-streak,
+.sf-schedule,
+.sf-projects-overview,
+.sf-reminders {
+  padding: 22px;
 }
 
-.sf-streak-footer button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+/* ==========================================
+   CAMINO DE PROGRESO
+========================================== */
+
+.sf-stage-label {
+  font-size: 12px;
+  color: #526a9c;
+  white-space: nowrap;
+}
+
+.sf-journey-list {
+  padding: 8px 0;
+}
+
+.sf-journey-stage {
+  display: flex;
+  gap: 18px;
+  min-height: 96px;
+}
+
+.sf-journey-track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 52px;
+  flex-shrink: 0;
+}
+
+.sf-journey-diamond {
+  display: grid;
+  place-items: center;
+  width: 43px;
+  height: 43px;
+  transform: rotate(45deg);
+  border-radius: 12px;
+  border: 3px solid white;
+  box-shadow: 0 3px 12px #bac5df;
+  background: #a9b6d0;
+  color: white;
+  flex-shrink: 0;
+}
+
+.sf-journey-diamond svg {
+  transform: rotate(-45deg);
+}
+
+.sf-journey-stage.completed .sf-journey-diamond {
+  background: linear-gradient(135deg, #ffb000, #ff5a12);
+  box-shadow: 0 0 15px #ff9a4380;
+}
+
+.sf-journey-stage.current .sf-journey-diamond {
+  background: linear-gradient(135deg, #ff54c8, #713cff);
+  box-shadow: 0 0 20px #a54cffaa;
+}
+
+.sf-journey-line {
+  width: 5px;
+  flex: 1;
+  margin: 5px 0;
+  border-radius: 10px;
+  background: #cbd3e6;
+}
+
+.sf-journey-stage.completed .sf-journey-line {
+  background: linear-gradient(#ff8a00, #873cff);
+}
+
+.sf-journey-info {
+  padding-top: 7px;
+}
+
+.sf-journey-info strong {
+  font-size: 14px;
+}
+
+.sf-journey-info p {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #8193b5;
+}
+
+.sf-journey-reward {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 12px;
+  background: #fff6e9;
+  color: #b97918;
+  font-size: 12px;
+}
+
+.sf-stage-complete {
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #ff8500, #ff5a12);
+  color: white;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.sf-stage-complete:hover {
+  filter: brightness(1.06);
+}
+
+/* ==========================================
+   RACHA DIARIA
+========================================== */
+
+.sf-streak-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sf-streak-count {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+}
+
+.sf-streak-count strong {
+  font-size: 22px;
+}
+
+.sf-streak-week {
+  display: flex;
+  gap: 9px;
+}
+
+.sf-streak-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #8193b5;
+}
+
+.sf-streak-dot {
+  width: 14px;
+  height: 14px;
+  border: 1px solid #aab8d3;
+  border-radius: 50%;
+}
+
+.sf-streak-dot.done {
+  background: #ff7000;
+  border-color: #ff7000;
+}
+
+/* ==========================================
+   AGENDA
+========================================== */
+
+.sf-schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.sf-schedule-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sf-schedule-time {
+  width: 44px;
+  flex-shrink: 0;
+  color: #526a9c;
+  font-size: 12px;
+}
+
+.sf-schedule-activity {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 13px 11px;
+  border-radius: 9px;
+  border-left: 3px solid #8e65ff;
+  background: #f2eeff;
+}
+
+.sf-schedule-activity.routine {
+  background: #eafaf3;
+  border-color: #20b879;
+}
+
+.sf-schedule-activity.finance {
+  background: #fff1e7;
+  border-color: #ff8500;
+}
+
+.sf-schedule-activity strong {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.sf-schedule-activity small {
+  font-size: 11px;
+  color: #8193b5;
+  white-space: nowrap;
+}
+
+/* ==========================================
+   PROYECTOS
+========================================== */
+
+.sf-projects-list {
+  display: grid;
+  gap: 12px;
+}
+
+.sf-project-item {
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+}
+
+.sf-project-item strong {
+  font-size: 14px;
+}
+
+.sf-project-item p {
+  margin-top: 5px;
+  color: var(--color-muted);
+  font-size: 12px;
+}
+
+.sf-progress-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.sf-progress-track {
+  height: 8px;
+  flex: 1;
+  border-radius: 20px;
+  background: #edf0f7;
+  overflow: hidden;
+}
+
+.sf-progress-fill {
+  height: 100%;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #ff8500, #ff5a12);
+}
+
+.sf-progress-row span {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ==========================================
+   RECORDATORIOS
+========================================== */
+
+.sf-reminder-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  border-top: 1px solid var(--color-border);
+  font-size: 12px;
+}
+
+.sf-reminder-item svg {
+  color: #ff5a12;
+}
+
+.sf-reminder-item span {
+  flex: 1;
+}
+
+.sf-reminder-item small {
+  color: #f05b51;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 1450px) {
+  .sf-dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sf-dashboard-right {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 1000px) {
+  .sf-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sf-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sf-dashboard-right {
+    grid-column: auto;
+  }
 }
 
 @media (max-width: 560px) {
-  .sf-streak-footer {
-    align-items: flex-start;
-    flex-direction: column;
+  .sf-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sf-streak-content {
+    flex-wrap: wrap;
+  }
+
+  .sf-journey,
+  .sf-streak,
+  .sf-schedule,
+  .sf-projects-overview,
+  .sf-reminders {
+    padding: 16px;
   }
 }

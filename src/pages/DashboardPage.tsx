@@ -2,9 +2,9 @@
 import { DailyOverview } from "../features/dashboard/components/DailyOverview";
 import { GoalJourneyCard } from "../features/dashboard/components/GoalJourneyCard";
 import { DailyStreakCard } from "../features/dashboard/components/DailyStreakCard";
+import { TodaySchedule } from "../features/dashboard/components/TodaySchedule";
 import { ProjectsOverview } from "../features/dashboard/components/ProjectsOverview";
 import { UpcomingReminders } from "../features/dashboard/components/UpcomingReminders";
-import { TodaySchedule } from "../features/dashboard/components/TodaySchedule";
 
 import { FocusTimer } from "../features/activity/components/FocusTimer";
 import { ActivityHistory } from "../features/activity/components/ActivityHistory";
@@ -15,45 +15,54 @@ import { DashboardAcademyCard } from "../features/dashboard/components/Dashboard
 import { DashboardProgressCard } from "../features/dashboard/components/DashboardProgressCard";
 import { DashboardHabitsCard } from "../features/dashboard/components/DashboardHabitsCard";
 
+// Estilos originales del dashboard
+import "../features/dashboard/DashboardPage.css";
+
+// Estilos adicionales de componentes originales
+import "../features/dashboard/components/DashboardPage.css";
+
+// Estilos de los widgets nuevos
 import "./DashboardPage.css";
 
 export function DashboardPage() {
   return (
-    <div className="sf-dashboard-page">
-      <div className="sf-dashboard-intro">
-        <h2>Mi espacio</h2>
-        <p>
-          Organiza tu día, avanza en tus objetivos
-          y descubre todo lo que has conseguido.
-        </p>
-      </div>
-
+    <div className="sf-dashboard">
       <DailyOverview />
 
-      <div className="sf-dashboard-main-grid">
-        <GoalJourneyCard />
-        <DailyStreakCard />
+      {/* GRID ORIGINAL */}
+      <div className="sf-dashboard-grid">
+        <div className="sf-dashboard-left">
+          <GoalJourneyCard />
+          <DailyStreakCard />
+        </div>
+
+        <div className="sf-dashboard-center">
+          <FocusTimer />
+          <ProjectsOverview />
+          <ActivityHistory />
+          <UpcomingReminders />
+        </div>
+
+        <div className="sf-dashboard-right">
+          <TodaySchedule />
+        </div>
       </div>
 
-      <div className="sf-dashboard-widget-grid">
-        <DashboardFinanceCard />
-        <DashboardTasksCard />
-        <DashboardAcademyCard />
-        <DashboardProgressCard />
-        <DashboardHabitsCard />
-      </div>
+      {/* WIDGETS NUEVOS: FUERA DEL GRID ORIGINAL */}
+      <section className="sf-dashboard-extra">
+        <div className="sf-dashboard-extra-heading">
+          <h3>Mi actividad</h3>
+          <span>Resumen de tus otras áreas</span>
+        </div>
 
-      <div className="sf-dashboard-main-grid">
-        <FocusTimer />
-        <TodaySchedule />
-      </div>
-
-      <div className="sf-dashboard-main-grid">
-        <ProjectsOverview />
-        <ActivityHistory />
-      </div>
-
-      <UpcomingReminders />
+        <div className="sf-dashboard-extra-grid">
+          <DashboardFinanceCard />
+          <DashboardTasksCard />
+          <DashboardAcademyCard />
+          <DashboardProgressCard />
+          <DashboardHabitsCard />
+        </div>
+      </section>
     </div>
   );
 }

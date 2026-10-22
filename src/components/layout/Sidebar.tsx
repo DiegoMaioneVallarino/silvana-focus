@@ -27,7 +27,6 @@ const navigation = [
   { label: "Hábitos", path: "/habits", icon: Heart },
   { label: "Finanzas", path: "/finances", icon: Wallet },
   { label: "Academia", path: "/academy", icon: GraduationCap },
-  { label: "Estadísticas", path: "/statistics", icon: ChartNoAxesCombined },
 ];
 
 export function Sidebar() {
