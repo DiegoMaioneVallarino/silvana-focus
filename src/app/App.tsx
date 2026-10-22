@@ -22,7 +22,7 @@ import { StatisticsPage } from "../pages/StatisticsPage";
 import { FinancesPage } from "../pages/FinancesPage";
 import { AcademyPage } from "../pages/AcademyPage";
 import { CoursePage } from "../pages/CoursePage";
-
+import { PlannerPage } from "../pages/PlannerPage";
 
 export default function App() {
   return (
@@ -84,6 +84,10 @@ export default function App() {
             element={<FinancesPage />}
           />
 
+         {/* Planeación */}
+          <Route path="planner" element={<PlannerPage />}
+          
+          />
           {/* Academia */}
           <Route
             path="academy"

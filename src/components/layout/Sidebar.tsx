@@ -1,5 +1,6 @@
 
 import { NavLink } from "react-router-dom";
+import { CalendarClock } from "lucide-react";
 import {
   House,
   CalendarDays,
@@ -20,6 +21,7 @@ import "./Sidebar.css";
 const navigation = [
   { label: "Hoy", path: "/", icon: House },
   { label: "Agenda", path: "/calendar", icon: CalendarDays },
+    {label: "Planificador",path: "/planner",icon: CalendarClock,},
   { label: "Objetivos", path: "/goals", icon: Target },
   { label: "Proyectos", path: "/projects", icon: FolderKanban },
   { label: "Tareas", path: "/tasks", icon: ListTodo },
