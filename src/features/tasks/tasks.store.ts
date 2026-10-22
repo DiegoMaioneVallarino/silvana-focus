@@ -7,6 +7,9 @@ import type {
   CreateTaskInput,
   TaskStatus,
 } from "./tasks.types";
+import {
+  removeScheduledSourceBlocks,
+} from "../planner/planner.sync";
 
 interface TasksState {
   tasks: Task[];
@@ -77,13 +80,15 @@ export const useTasksStore = create<TasksState>()(
           ),
         })),
 
-      // Eliminar tarea
-      deleteTask: (id) =>
-        set((state) => ({
-          tasks: state.tasks.filter(
-            (task) => task.id !== id
-          ),
-        })),
+     deleteTask: (id) => {
+  set((state) => ({
+    tasks: state.tasks.filter(
+      (task) => task.id !== id
+    ),
+  }));
+
+  removeScheduledSourceBlocks("task", id);
+},
 
       // Añadir subtarea
       addSubtask: (taskId, title) =>

@@ -204,3 +204,34 @@
     grid-template-columns: 1fr;
   }
 }
+/* Task ↔ Planner integration */
+
+.sf-task-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.sf-task-card-footer > select {
+  flex: 1;
+  min-width: 120px;
+}
+
+.sf-task-card-footer .sf-task-schedule-trigger {
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .sf-task-card-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sf-task-card-footer > select,
+  .sf-task-card-footer .sf-task-schedule-trigger {
+    width: 100%;
+  }
+}

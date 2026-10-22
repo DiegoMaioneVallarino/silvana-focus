@@ -1,0 +1,113 @@
+
+.sf-task-schedule-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 11px;
+  border: 1px solid #ffe0cd;
+  border-radius: 9px;
+  background: #fff1e7;
+  color: #ff5a12;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sf-task-schedule-trigger:hover {
+  background: #ffe5d3;
+}
+
+.sf-task-schedule-success {
+  margin-left: 8px;
+  color: #20b879;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.sf-task-schedule-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(15, 25, 45, 0.45);
+  backdrop-filter: blur(5px);
+}
+
+.sf-task-schedule-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  width: min(100%, 420px);
+  padding: 26px;
+  border-radius: 20px;
+  background: white;
+  box-shadow: 0 25px 90px rgba(15, 25, 45, 0.2);
+}
+
+.sf-task-schedule-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.sf-task-schedule-header h3 {
+  margin: 0 0 6px;
+  font-size: 19px;
+}
+
+.sf-task-schedule-header p {
+  margin: 0;
+  color: #8193b5;
+  font-size: 12px;
+}
+
+.sf-task-schedule-header button {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #f4f6fa;
+  cursor: pointer;
+}
+
+.sf-task-schedule-modal label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.sf-task-schedule-modal input {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #e8edf6;
+  border-radius: 10px;
+  background: white;
+  color: #172033;
+  font: inherit;
+  font-size: 13px;
+}
+
+.sf-task-schedule-error {
+  margin: 0;
+  padding: 11px;
+  border-radius: 9px;
+  background: #fff0f0;
+  color: #d94d4d;
+  font-size: 12px;
+}
+
+.sf-task-schedule-submit {
+  padding: 12px;
+  border-radius: 11px;
+  background: #ff5a12;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}

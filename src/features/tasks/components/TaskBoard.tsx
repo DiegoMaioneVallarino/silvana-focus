@@ -7,7 +7,8 @@ import {
   Circle,
   Clock3,
 } from "lucide-react";
-
+import { TaskScheduleButton } from
+  "../../planner/components/TaskScheduleButton";
 import { useTasksStore } from "../tasks.store";
 import { useGoalsStore } from "../../goals/goals.store";
 
@@ -121,19 +122,27 @@ function TaskCard({ task }: { task: Task }) {
         </form>
       </div>
 
-      <select
-        value={task.status}
-        onChange={(event) =>
-          updateStatus(
-            task.id,
-            event.target.value as TaskStatus
-          )
-        }
-      >
-        <option value="pending">Pendiente</option>
-        <option value="in_progress">En progreso</option>
-        <option value="completed">Completada</option>
-      </select>
+            <div className="sf-task-card-footer">
+        <select
+          value={task.status}
+          onChange={(event) =>
+            updateStatus(
+              task.id,
+              event.target.value as TaskStatus
+            )
+          }
+        >
+          <option value="pending">Pendiente</option>
+          <option value="in_progress">En progreso</option>
+          <option value="completed">Completada</option>
+        </select>
+
+        <TaskScheduleButton
+          taskId={task.id}
+          taskTitle={task.title}
+          priority={task.priority}
+        />
+      </div>
     </article>
   );
 }
