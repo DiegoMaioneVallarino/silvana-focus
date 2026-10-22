@@ -11,10 +11,9 @@ import {
   scheduleAcademyLesson,
 } from "../planner.academy";
 
-import { toLocalDateKey } from "../../streaks/streaks.utils";
-
+import { toLocalDateKey } from "../../calendar/calendar.utils";
 import "./AcademyScheduleButton.css";
-
+import type { FormEvent } from "react";
 interface AcademyScheduleButtonProps {
   course: Course;
   lesson: Lesson;
@@ -35,8 +34,7 @@ export function AcademyScheduleButton({
   const [success, setSuccess] = useState("");
 
   function handleSubmit(
-    event: React.FormEvent<HTMLFormElement>
-  ) {
+event: FormEvent<HTMLFormElement>  ) {
     event.preventDefault();
 
     setError("");

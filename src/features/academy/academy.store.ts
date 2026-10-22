@@ -197,27 +197,30 @@ export const useAcademyStore =
             ),
           })),
 
-        deleteCourse: (courseId) =>
-          set((state) => {
-            const progress = {
-              ...state.progress,
-            };
+ deleteCourse: (courseId) => {
+  const course = get().courses.find(
+    (item) => item.id === courseId
+  );
 
-            delete progress[courseId];
+  if (!course) return;
 
-            return {
-              courses: state.courses.filter(
-                (course) =>
-                  course.id !== courseId
-              ),
-              progress,
-              attempts: state.attempts.filter(
-                (attempt) =>
-                  attempt.courseId !==
-                  courseId
-              ),
-            };
-          }),
+  removeAcademyCourseBlocks(course);
+
+  set((state) => {
+    const progress = { ...state.progress };
+    delete progress[courseId];
+
+    return {
+      courses: state.courses.filter(
+        (item) => item.id !== courseId
+      ),
+      progress,
+      attempts: state.attempts.filter(
+        (attempt) => attempt.courseId !== courseId
+      ),
+    };
+  });
+},
 
         addUnit: (
           courseId,
@@ -261,11 +264,22 @@ export const useAcademyStore =
             ),
           })),
 
-        deleteUnit: (
-          courseId,
-          unitId
-        ) =>
-          set((state) => {
+        deleteUnit: (courseId, unitId) => {
+  const course = get().courses.find(
+    (item) => item.id === courseId
+  );
+
+  const unit = course?.units.find(
+    (item) => item.id === unitId
+  );
+
+  if (!unit) return;
+
+  unit.lessons.forEach((lesson) => {
+    removeAcademyLessonBlocks(lesson.id);
+  });
+
+  set((state) => {
             const course =
               state.courses.find(
                 (item) =>
@@ -313,8 +327,8 @@ export const useAcademyStore =
                     )
                 ),
             };
-          }),
-
+          });
+},
         addLesson: (
           courseId,
           unitId,
@@ -374,49 +388,53 @@ export const useAcademyStore =
             ),
           })),
 
-        deleteLesson: (
-          courseId,
-          unitId,
-          lessonId
-        ) =>
-          set((state) => ({
-            courses: updateCourseUnits(
-              state.courses,
-              courseId,
-              (units) =>
-                units.map((unit) =>
-                  unit.id === unitId
-                    ? {
-                        ...unit,
-                        lessons:
-                          unit.lessons.filter(
-                            (lesson) =>
-                              lesson.id !==
-                              lessonId
-                          ),
-                      }
-                    : unit
-                )
-            ),
+        deleteLesson: (courseId, unitId, lessonId) => {
+  const exists = get().courses.some(
+    (course) =>
+      course.id === courseId &&
+      course.units.some(
+        (unit) =>
+          unit.id === unitId &&
+          unit.lessons.some(
+            (lesson) => lesson.id === lessonId
+          )
+      )
+  );
 
-            progress:
-              removeProgressForLessons(
-                state.progress,
-                courseId,
-                [lessonId]
-              ),
+  if (!exists) return;
 
-            attempts:
-              state.attempts.filter(
-                (attempt) =>
-                  !(
-                    attempt.courseId ===
-                      courseId &&
-                    attempt.lessonId ===
-                      lessonId
-                  )
-              ),
-          })),
+  removeAcademyLessonBlocks(lessonId);
+
+  set((state) => ({
+    courses: updateCourseUnits(
+      state.courses,
+      courseId,
+      (units) =>
+        units.map((unit) =>
+          unit.id === unitId
+            ? {
+                ...unit,
+                lessons: unit.lessons.filter(
+                  (lesson) => lesson.id !== lessonId
+                ),
+              }
+            : unit
+        )
+    ),
+    progress: removeProgressForLessons(
+      state.progress,
+      courseId,
+      [lessonId]
+    ),
+    attempts: state.attempts.filter(
+      (attempt) =>
+        !(
+          attempt.courseId === courseId &&
+          attempt.lessonId === lessonId
+        )
+    ),
+  }));
+},
 
         completeLesson: (
           courseId,
