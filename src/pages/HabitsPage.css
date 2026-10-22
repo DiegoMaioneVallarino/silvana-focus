@@ -96,7 +96,14 @@
   align-items: flex-start;
   gap: 12px;
 }
-
+.sf-habit-planner-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  margin-bottom: 12px;
+}
 .sf-habit-emoji {
   display: grid;
   place-items: center;

@@ -1,0 +1,141 @@
+.sf-habit-schedule-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border-radius: 9px;
+  background: #e9faf1;
+  color: #159e66;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sf-habit-schedule-trigger:hover {
+  background: #d9f5e6;
+}
+
+.sf-habit-schedule-success {
+  color: #159e66;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.sf-habit-schedule-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(15, 25, 45, 0.45);
+  backdrop-filter: blur(5px);
+}
+
+.sf-habit-schedule-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: min(100%, 430px);
+  padding: 26px;
+  border-radius: 20px;
+  background: white;
+  box-shadow: 0 25px 90px rgba(15, 25, 45, 0.2);
+}
+
+.sf-habit-schedule-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.sf-habit-schedule-header h3 {
+  margin: 0 0 6px;
+  font-size: 19px;
+}
+
+.sf-habit-schedule-header p {
+  margin: 0;
+  color: #8193b5;
+  font-size: 12px;
+}
+
+.sf-habit-schedule-header > button {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #f4f6fa;
+  cursor: pointer;
+}
+
+.sf-habit-schedule-modes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 5px;
+  border-radius: 12px;
+  background: #f3f6fa;
+}
+
+.sf-habit-schedule-modes button {
+  padding: 10px;
+  border-radius: 9px;
+  color: #8193b5;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sf-habit-schedule-modes button.active {
+  background: white;
+  color: #159e66;
+  box-shadow: 0 2px 8px rgba(30, 50, 90, 0.07);
+}
+
+.sf-habit-schedule-modal label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.sf-habit-schedule-modal input {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #e8edf6;
+  border-radius: 10px;
+  background: white;
+  color: #172033;
+  font: inherit;
+  font-size: 13px;
+}
+
+.sf-habit-schedule-hint {
+  margin: 0;
+  color: #8193b5;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.sf-habit-schedule-error {
+  margin: 0;
+  padding: 11px;
+  border-radius: 9px;
+  background: #fff0f0;
+  color: #d94d4d;
+  font-size: 12px;
+}
+
+.sf-habit-schedule-submit {
+  padding: 12px;
+  border-radius: 11px;
+  background: #20b879;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}

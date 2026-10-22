@@ -8,7 +8,16 @@ import type {
   UpdateHabitInput,
 } from "./habits.types";
 
+import {
+  removeScheduledSourceBlocks,
+} from "../planner/planner.sync";
+
+import {
+  removeFutureHabitBlocks,
+} from "../planner/planner.recurrence";
+
 import { toLocalDateKey } from "../streaks/streaks.utils";
+
 
 interface HabitsState {
   habits: Habit[];
@@ -102,17 +111,23 @@ export const useHabitsStore = create<HabitsState>()(
           }),
         })),
 
-      archiveHabit: (id) =>
-        set((state) => ({
-          habits: state.habits.map((habit) =>
-            habit.id === id
-              ? {
-                  ...habit,
-                  archivedAt: new Date().toISOString(),
-                }
-              : habit
-          ),
-        })),
+      archiveHabit: (id) => {
+  set((state) => ({
+    habits: state.habits.map((habit) =>
+      habit.id === id
+        ? {
+            ...habit,
+            archivedAt: new Date().toISOString(),
+          }
+        : habit
+    ),
+  }));
+
+  removeFutureHabitBlocks(
+    id,
+    toLocalDateKey(new Date())
+  );
+},
 
       restoreHabit: (id) =>
         set((state) => ({
@@ -123,12 +138,15 @@ export const useHabitsStore = create<HabitsState>()(
           ),
         })),
 
-      deleteHabit: (id) =>
-        set((state) => ({
-          habits: state.habits.filter(
-            (habit) => habit.id !== id
-          ),
-        })),
+      deleteHabit: (id) => {
+  set((state) => ({
+    habits: state.habits.filter(
+      (habit) => habit.id !== id
+    ),
+  }));
+
+  removeScheduledSourceBlocks("habit", id);
+},
     }),
     {
       name: "silvana-habits",

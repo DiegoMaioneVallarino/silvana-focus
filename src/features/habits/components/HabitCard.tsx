@@ -13,6 +13,9 @@ import type { Habit } from "../habits.types";
 import { useHabitsStore } from "../habits.store";
 import { getHabitStats } from "../habits.utils";
 
+import { HabitScheduleButton } from
+  "./HabitScheduleButton";
+
 import { HabitWeek } from "./HabitWeek";
 import { HabitForm } from "./HabitForm";
 
@@ -137,7 +140,11 @@ export function HabitCard({ habit }: HabitCardProps) {
       </div>
 
       <HabitWeek habit={habit} />
-
+{!habit.archivedAt && (
+  <div className="sf-habit-planner-actions">
+    <HabitScheduleButton habit={habit} />
+  </div>
+)}
       <div className="sf-habit-card-footer">
         <span>
           {habit.archivedAt
