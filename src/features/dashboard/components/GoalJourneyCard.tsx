@@ -4,6 +4,7 @@ import {
   Gem,
   LockKeyhole,
   Trophy,
+  ArrowRight,
 } from "lucide-react";
 
 import { Link } from "react-router-dom";
@@ -40,6 +41,24 @@ export function GoalJourneyCard() {
     (stage) => stage.status === "available"
   );
 
+  const focusIndex =
+    currentIndex >= 0
+      ? currentIndex
+      : Math.max(0, goal.stages.length - 1);
+
+  const startIndex = Math.max(
+    0,
+    Math.min(
+      focusIndex - 1,
+      goal.stages.length - 3
+    )
+  );
+
+  const visibleStages = goal.stages.slice(
+    startIndex,
+    startIndex + 3
+  );
+
   return (
     <section className="sf-card sf-journey">
       <div className="sf-section-header">
@@ -56,11 +75,13 @@ export function GoalJourneyCard() {
       </div>
 
       <div className="sf-journey-list">
-        {goal.stages.map((stage, index) => {
+        {visibleStages.map((stage, index) => {
           const status =
             stage.status === "available"
               ? "current"
               : stage.status;
+
+          const actualIndex = startIndex + index;
 
           return (
             <div
@@ -69,21 +90,27 @@ export function GoalJourneyCard() {
             >
               <div className="sf-journey-track">
                 <div className="sf-journey-diamond">
-                  {status === "completed" && <Check size={22} />}
-                  {status === "current" && <Gem size={22} />}
+                  {status === "completed" && (
+                    <Check size={22} />
+                  )}
+
+                  {status === "current" && (
+                    <Gem size={22} />
+                  )}
+
                   {status === "locked" && (
                     <LockKeyhole size={18} />
                   )}
                 </div>
 
-                {index < goal.stages.length - 1 && (
+                {index < visibleStages.length - 1 && (
                   <div className="sf-journey-line" />
                 )}
               </div>
 
               <div className="sf-journey-info">
                 <strong>
-                  {index + 1}. {stage.title}
+                  {actualIndex + 1}. {stage.title}
                 </strong>
 
                 <p>{stage.description}</p>
@@ -105,14 +132,22 @@ export function GoalJourneyCard() {
       </div>
 
       <div className="sf-journey-reward">
-        <Trophy size={24} />
+        <Trophy size={20} />
         <span>
           {goal.stages.length > 0 &&
           completed === goal.stages.length
             ? "¡Recorrido completado!"
-            : "Continúa avanzando para alcanzar tu objetivo."}
+            : `${completed} de ${goal.stages.length} etapas completadas`}
         </span>
       </div>
+
+      <Link
+        to="/goals"
+        className="sf-journey-view-all"
+      >
+        Ver recorrido completo
+        <ArrowRight size={15} />
+      </Link>
     </section>
   );
 }

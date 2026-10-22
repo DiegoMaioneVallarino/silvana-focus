@@ -445,3 +445,108 @@
   filter: brightness(1.06);
 }
 
+
+/* =========================================
+   DASHBOARD V2 — DISTRIBUCIÓN
+========================================= */
+
+.sf-dashboard-v2 .sf-dashboard-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(260px, 0.95fr)
+    minmax(350px, 1.2fr)
+    minmax(260px, 0.95fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.sf-dashboard-v2 .sf-dashboard-left,
+.sf-dashboard-v2 .sf-dashboard-center,
+.sf-dashboard-v2 .sf-dashboard-right {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.sf-dashboard-v2 .sf-journey-list {
+  padding: 6px 0;
+}
+
+.sf-dashboard-v2 .sf-journey-stage {
+  min-height: 76px;
+}
+
+.sf-dashboard-v2 .sf-journey-reward {
+  margin-top: 6px;
+}
+
+.sf-journey-view-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 10px;
+  border-radius: 10px;
+  background: #fff1e7;
+  color: #ff5a12;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.sf-journey-view-all:hover {
+  background: #ffe4d3;
+}
+
+.sf-dashboard-v2 .sf-dashboard-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.sf-dashboard-v2 .sf-dashboard-side-widgets {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Los widgets mantienen su propio diseño */
+
+.sf-dashboard-v2 .sf-dashboard-widget {
+  min-width: 0;
+  padding: 16px;
+}
+
+.sf-dashboard-v2 .sf-dashboard-widget-value {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 1350px) {
+  .sf-dashboard-v2 .sf-dashboard-grid {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1fr);
+  }
+
+  .sf-dashboard-v2 .sf-dashboard-right {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 950px) {
+  .sf-dashboard-v2 .sf-dashboard-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sf-dashboard-v2 .sf-dashboard-right {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 650px) {
+  .sf-dashboard-v2 .sf-dashboard-mini-grid {
+    grid-template-columns: 1fr;
+  }
+}

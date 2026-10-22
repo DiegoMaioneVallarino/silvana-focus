@@ -210,3 +210,120 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Widgets v2: estilos independientes del grid extra */
+
+.sf-dashboard-v2 .sf-dashboard-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.sf-dashboard-v2 .sf-dashboard-widget-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.sf-dashboard-v2 .sf-dashboard-widget-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.sf-dashboard-v2 .sf-dashboard-widget-title h3 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.sf-dashboard-v2 .sf-dashboard-widget-label {
+  color: var(--color-muted);
+  font-size: 11px;
+}
+
+.sf-dashboard-v2 .sf-dashboard-widget-value {
+  display: block;
+  font-size: 23px;
+  font-weight: 750;
+  line-height: 1.2;
+}
+
+.sf-dashboard-v2 .sf-dashboard-widget-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-muted);
+  font-size: 11px;
+}
+
+.sf-dashboard-v2 .sf-dashboard-finance-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.sf-dashboard-v2 .sf-dashboard-finance-stats > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.sf-dashboard-v2 .sf-dashboard-finance-stats span {
+  color: var(--color-muted);
+  font-size: 10px;
+}
+
+.sf-dashboard-v2 .sf-dashboard-finance-stats strong {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.sf-dashboard-v2 .sf-dashboard-task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.sf-dashboard-v2 .sf-dashboard-task-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+}
+
+.sf-dashboard-v2 .sf-dashboard-course-title {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.sf-dashboard-v2 .sf-finance-progress {
+  height: 8px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 100px;
+  background: #edf0f6;
+}
+
+.sf-dashboard-v2 .sf-finance-progress > div {
+  height: 100%;
+  border-radius: inherit;
+}
+
+.sf-dashboard-v2 .sf-dashboard-widget-action {
+  margin-top: auto;
+  color: var(--color-purple);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}

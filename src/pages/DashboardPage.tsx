@@ -15,54 +15,45 @@ import { DashboardAcademyCard } from "../features/dashboard/components/Dashboard
 import { DashboardProgressCard } from "../features/dashboard/components/DashboardProgressCard";
 import { DashboardHabitsCard } from "../features/dashboard/components/DashboardHabitsCard";
 
-// Estilos originales del dashboard
 import "../features/dashboard/DashboardPage.css";
-
-// Estilos adicionales de componentes originales
 import "../features/dashboard/components/DashboardPage.css";
-
-// Estilos de los widgets nuevos
 import "./DashboardPage.css";
 
 export function DashboardPage() {
   return (
-    <div className="sf-dashboard">
+    <div className="sf-dashboard sf-dashboard-v2">
       <DailyOverview />
 
-      {/* GRID ORIGINAL */}
       <div className="sf-dashboard-grid">
         <div className="sf-dashboard-left">
           <GoalJourneyCard />
           <DailyStreakCard />
+          <DashboardProgressCard />
         </div>
 
         <div className="sf-dashboard-center">
           <FocusTimer />
           <ProjectsOverview />
+
+          <div className="sf-dashboard-mini-grid">
+            <DashboardFinanceCard />
+            <DashboardAcademyCard />
+          </div>
+
           <ActivityHistory />
-          <UpcomingReminders />
         </div>
 
         <div className="sf-dashboard-right">
           <TodaySchedule />
+
+          <div className="sf-dashboard-side-widgets">
+            <DashboardTasksCard />
+            <DashboardHabitsCard />
+          </div>
+
+          <UpcomingReminders />
         </div>
       </div>
-
-      {/* WIDGETS NUEVOS: FUERA DEL GRID ORIGINAL */}
-      <section className="sf-dashboard-extra">
-        <div className="sf-dashboard-extra-heading">
-          <h3>Mi actividad</h3>
-          <span>Resumen de tus otras áreas</span>
-        </div>
-
-        <div className="sf-dashboard-extra-grid">
-          <DashboardFinanceCard />
-          <DashboardTasksCard />
-          <DashboardAcademyCard />
-          <DashboardProgressCard />
-          <DashboardHabitsCard />
-        </div>
-      </section>
     </div>
   );
 }
