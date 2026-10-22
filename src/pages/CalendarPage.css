@@ -280,3 +280,27 @@
     grid-template-columns: 1fr;
   }
 }
+.sf-event-feedback {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.sf-event-feedback svg {
+  flex-shrink: 0;
+}
+
+.sf-event-feedback.error {
+  background: #fff0f0;
+  color: #d94d4d;
+}
+
+.sf-event-feedback.success {
+  background: #e9faf1;
+  color: #159e66;
+}

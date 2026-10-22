@@ -1,6 +1,5 @@
-
 import { useState } from "react";
-import { Plus } from "lucide-react";
+import { Plus, AlertCircle, CheckCircle2 } from "lucide-react";
 
 import { useCalendarStore } from "../calendar.store";
 import type { CalendarEventCategory } from "../calendar.types";
@@ -26,12 +25,47 @@ export function EventForm({ selectedDate }: EventFormProps) {
     useState<CalendarEventCategory>("learning");
   const [goalId, setGoalId] = useState("");
 
-  function handleSubmit(event: React.FormEvent) {
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!title.trim()) return;
+    setError("");
+    setSuccess("");
 
-    addEvent({
+    if (!title.trim()) {
+      setError("Escribe el nombre de la actividad.");
+      return;
+    }
+
+    if (
+      !Number.isInteger(durationMinutes) ||
+      durationMinutes < 5 ||
+      durationMinutes > 1440
+    ) {
+      setError("La duración debe estar entre 5 y 1440 minutos.");
+      return;
+    }
+
+    const [hours, minutes] = startTime.split(":").map(Number);
+
+    if (
+      !Number.isInteger(hours) ||
+      !Number.isInteger(minutes) ||
+      hours < 0 ||
+      hours > 23 ||
+      minutes < 0 ||
+      minutes > 59 ||
+      hours * 60 + minutes + durationMinutes > 1440
+    ) {
+      setError(
+        "La actividad debe terminar antes de las 00:00."
+      );
+      return;
+    }
+
+    const result = addEvent({
       title: title.trim(),
       description: description.trim(),
       date,
@@ -41,8 +75,15 @@ export function EventForm({ selectedDate }: EventFormProps) {
       goalId: goalId || null,
     });
 
+    if (!result.success) {
+      setError(result.error);
+      return;
+    }
+
     setTitle("");
     setDescription("");
+
+    setSuccess("Actividad creada y sincronizada con tu Planner.");
   }
 
   return (
@@ -53,7 +94,11 @@ export function EventForm({ selectedDate }: EventFormProps) {
         Nombre
         <input
           value={title}
-          onChange={(event) => setTitle(event.target.value)}
+          onChange={(event) => {
+            setTitle(event.target.value);
+            setError("");
+            setSuccess("");
+          }}
           placeholder="Ej. Estudiar matemáticas"
           required
         />
@@ -142,6 +187,20 @@ export function EventForm({ selectedDate }: EventFormProps) {
           ))}
         </select>
       </label>
+
+      {error && (
+        <div className="sf-event-feedback error" role="alert">
+          <AlertCircle size={16} />
+          <span>{error}</span>
+        </div>
+      )}
+
+      {success && (
+        <div className="sf-event-feedback success" role="status">
+          <CheckCircle2 size={16} />
+          <span>{success}</span>
+        </div>
+      )}
 
       <button type="submit" className="sf-event-submit">
         <Plus size={17} />

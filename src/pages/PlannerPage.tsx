@@ -320,67 +320,71 @@ export function PlannerPage() {
                 </div>
 
                 <div className="sf-planner-block-actions">
-                  {block.status !== "completed" && (
-                    <button
-                      title="Completar"
-                      aria-label={`Completar ${block.title}`}
-                      onClick={() =>
-                        setBlockStatus(block.id, "completed")
-                      }
-                    >
-                      <Check size={16} />
-                    </button>
-                  )}
+  {block.source !== "calendar" && (
+    <>
+      {block.status !== "completed" && (
+        <button
+          title="Completar"
+          aria-label={`Completar ${block.title}`}
+          onClick={() =>
+            setBlockStatus(block.id, "completed")
+          }
+        >
+          <Check size={16} />
+        </button>
+      )}
 
-                  {block.status !== "skipped" && (
-                    <button
-                      title="Omitir"
-                      aria-label={`Omitir ${block.title}`}
-                      onClick={() =>
-                        setBlockStatus(block.id, "skipped")
-                      }
-                    >
-                      <SkipForward size={16} />
-                    </button>
-                  )}
+      {block.status !== "skipped" && (
+        <button
+          title="Omitir"
+          aria-label={`Omitir ${block.title}`}
+          onClick={() =>
+            setBlockStatus(block.id, "skipped")
+          }
+        >
+          <SkipForward size={16} />
+        </button>
+      )}
 
-                  {block.status !== "planned" && (
-                    <button
-                      title="Volver a pendiente"
-                      aria-label={`Reactivar ${block.title}`}
-                      onClick={() =>
-                        setBlockStatus(block.id, "planned")
-                      }
-                    >
-                      <RotateCcw size={16} />
-                    </button>
-                  )}
+      {block.status !== "planned" && (
+        <button
+          title="Volver a pendiente"
+          aria-label={`Reactivar ${block.title}`}
+          onClick={() =>
+            setBlockStatus(block.id, "planned")
+          }
+        >
+          <RotateCcw size={16} />
+        </button>
+      )}
 
-                  <button
-                    title="Editar"
-                    aria-label={`Editar ${block.title}`}
-                    onClick={() => openEdit(block)}
-                  >
-                    <Pencil size={16} />
-                  </button>
+      <button
+        title="Editar"
+        aria-label={`Editar ${block.title}`}
+        onClick={() => openEdit(block)}
+      >
+        <Pencil size={16} />
+      </button>
 
-                  <button
-                    className="danger"
-                    title="Eliminar"
-                    aria-label={`Eliminar ${block.title}`}
-                    onClick={() => {
-                      if (
-                        window.confirm(
-                          `¿Eliminar "${block.title}" del plan?`
-                        )
-                      ) {
-                        removeBlock(block.id);
-                      }
-                    }}
-                  >
-                    <Trash2 size={16} />
-                  </button>
-                </div>
+      <button
+        className="danger"
+        title="Eliminar"
+        aria-label={`Eliminar ${block.title}`}
+        onClick={() => {
+          if (
+            window.confirm(
+              `¿Eliminar "${block.title}" del plan?`
+            )
+          ) {
+            removeBlock(block.id);
+          }
+        }}
+      >
+        <Trash2 size={16} />
+      </button>
+    </>
+  )}
+</div>
               </article>
             ))}
           </div>
@@ -509,11 +513,7 @@ export function PlannerPage() {
                   })
                 }
               >
-                <option value="manual">Personal</option>
-                <option value="task">Tarea</option>
-                <option value="habit">Hábito</option>
-                <option value="calendar">Calendario</option>
-                <option value="academy">Academia</option>
+               <option value="manual">Personal</option>
               </select>
             </label>
 
