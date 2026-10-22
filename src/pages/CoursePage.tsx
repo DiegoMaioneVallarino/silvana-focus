@@ -13,6 +13,8 @@ import {
   Trash2,
 } from "lucide-react";
 
+import { AcademyScheduleButton } from "../features/planner/components/AcademyScheduleButton";
+
 import type {
   Lesson,
 } from "../features/academy/academy.types";
@@ -169,39 +171,58 @@ export function CoursePage() {
           </button>
         </>
       ) : selectedLesson ? (
-        selectedLesson.type === "quiz" ? (
-          <QuizViewer
-            key={selectedLesson.id}
-            lesson={selectedLesson}
-            onSubmit={(answers) =>
-              submitQuiz(
-                course.id,
-                selectedLesson.id,
-                answers
-              )
-            }
-            onClose={() =>
-              setSelectedLesson(null)
-            }
-          />
-        ) : (
-          <LessonViewer
-            key={selectedLesson.id}
-            lesson={selectedLesson}
-            onComplete={() => {
-              completeLesson(
-                course.id,
-                selectedLesson.id
-              );
+  <div className="sf-academy-lesson-session">
+    <div className="sf-card sf-academy-lesson-session-header">
+      <div>
+        <span className="sf-muted">
+          {selectedLesson.type === "quiz"
+            ? "Cuestionario"
+            : "Lección"}
+        </span>
 
-              setSelectedLesson(null);
-            }}
-            onClose={() =>
-              setSelectedLesson(null)
-            }
-          />
-        )
-      ) : (
+        <h3>{selectedLesson.title}</h3>
+      </div>
+
+      <AcademyScheduleButton
+        course={course}
+        lesson={selectedLesson}
+      />
+    </div>
+
+    {selectedLesson.type === "quiz" ? (
+      <QuizViewer
+        key={selectedLesson.id}
+        lesson={selectedLesson}
+        onSubmit={(answers) =>
+          submitQuiz(
+            course.id,
+            selectedLesson.id,
+            answers
+          )
+        }
+        onClose={() =>
+          setSelectedLesson(null)
+        }
+      />
+    ) : (
+      <LessonViewer
+        key={selectedLesson.id}
+        lesson={selectedLesson}
+        onComplete={() => {
+          completeLesson(
+            course.id,
+            selectedLesson.id
+          );
+
+          setSelectedLesson(null);
+        }}
+        onClose={() =>
+          setSelectedLesson(null)
+        }
+      />
+    )}
+  </div>
+) : (
         <LearningPath
           course={course}
           progress={courseProgress}

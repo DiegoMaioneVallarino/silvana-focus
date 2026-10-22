@@ -1,0 +1,122 @@
+
+.sf-academy-schedule-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border-radius: 9px;
+  background: #f2eaff;
+  color: #873cff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sf-academy-schedule-trigger:hover {
+  background: #e8d9ff;
+}
+
+.sf-academy-schedule-success {
+  color: #20b879;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.sf-academy-schedule-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(15, 25, 45, 0.45);
+  backdrop-filter: blur(5px);
+}
+
+.sf-academy-schedule-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: min(100%, 430px);
+  padding: 26px;
+  border-radius: 20px;
+  background: white;
+  box-shadow: 0 25px 90px rgba(15, 25, 45, 0.2);
+}
+
+.sf-academy-schedule-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.sf-academy-schedule-header h3 {
+  margin: 0 0 6px;
+  font-size: 19px;
+}
+
+.sf-academy-schedule-header p {
+  margin: 0 0 5px;
+  color: #8193b5;
+  font-size: 12px;
+}
+
+.sf-academy-schedule-header strong {
+  font-size: 13px;
+}
+
+.sf-academy-schedule-header > button {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #f4f6fa;
+  cursor: pointer;
+}
+
+.sf-academy-schedule-modal label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.sf-academy-schedule-modal input {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #e8edf6;
+  border-radius: 10px;
+  background: white;
+  color: #172033;
+  font: inherit;
+  font-size: 13px;
+}
+
+.sf-academy-schedule-hint {
+  margin: 0;
+  color: #8193b5;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.sf-academy-schedule-error {
+  margin: 0;
+  padding: 11px;
+  border-radius: 9px;
+  background: #fff0f0;
+  color: #d94d4d;
+  font-size: 12px;
+}
+
+.sf-academy-schedule-submit {
+  padding: 12px;
+  border-radius: 11px;
+  background: #873cff;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}

@@ -17,6 +17,11 @@ import {
   getCourseLessons,
   isLessonUnlocked,
 } from "./academy.utils";
+import {
+  removeAcademyCourseBlocks,
+  removeAcademyLessonBlocks,
+} from "../planner/planner.academy";
+
 
 interface QuizResult {
   score: number;

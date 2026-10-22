@@ -777,3 +777,29 @@
   color: #7c8eae;
   font-size: 11px;
 }
+.sf-academy-lesson-session {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sf-academy-lesson-session-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 22px;
+}
+
+.sf-academy-lesson-session-header h3 {
+  margin: 5px 0 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .sf-academy-lesson-session-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
