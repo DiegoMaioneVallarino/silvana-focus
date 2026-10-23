@@ -1,0 +1,137 @@
+
+.sf-planner-priority-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+}
+
+.sf-planner-priority-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.sf-planner-priority-header h2 {
+  margin: 7px 0 6px;
+  font-size: 19px;
+}
+
+.sf-planner-priority-header p {
+  margin: 0;
+  color: #8193b5;
+  font-size: 13px;
+}
+
+.sf-planner-priority-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #873cff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+}
+
+.sf-planner-priority-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sf-planner-priority-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 16px;
+  border: 1px solid #edf0f6;
+  border-radius: 13px;
+  background: #fff;
+}
+
+.sf-planner-priority-position {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #f3ecff;
+  color: #873cff;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.sf-planner-priority-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.sf-planner-priority-info > strong {
+  font-size: 13px;
+}
+
+.sf-planner-priority-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  color: #8193b5;
+  font-size: 11px;
+}
+
+.sf-planner-priority-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sf-planner-priority-reasons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.sf-planner-priority-reasons small {
+  padding: 4px 7px;
+  border-radius: 6px;
+  background: #f7f8fc;
+  color: #66738c;
+  font-size: 10px;
+}
+
+.sf-planner-priority-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  min-width: 45px;
+}
+
+.sf-planner-priority-score strong {
+  color: #873cff;
+  font-size: 22px;
+}
+
+.sf-planner-priority-score small {
+  color: #8193b5;
+  font-size: 10px;
+}
+
+.sf-planner-priority-note {
+  margin: 0;
+  color: #8193b5;
+  font-size: 11px;
+}
+
+@media (max-width: 600px) {
+  .sf-planner-priority-item {
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px;
+  }
+}

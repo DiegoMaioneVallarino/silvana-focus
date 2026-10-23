@@ -13,6 +13,8 @@ import {
   Pencil,
   AlertCircle,
 } from "lucide-react";
+import { PlannerPriorityPreview } from "../features/planner/components/PlannerPriorityPreview";
+
 
 import { usePlannerStore } from "../features/planner/planner.store";
 import {
@@ -248,6 +250,7 @@ export function PlannerPage() {
         </div>
       </section>
       <PlannerAvailability date={selectedDate} />
+      <PlannerPriorityPreview date={selectedDate} />
       <section className="sf-card sf-planner-timeline">
         <div className="sf-planner-section-heading">
           <div>
