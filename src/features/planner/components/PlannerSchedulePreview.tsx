@@ -19,7 +19,13 @@ import type {
 } from "../planner.priorities";
 
 import "./PlannerSchedulePreview.css";
+import { useTasksStore } from "../../tasks/tasks.store";
+import { useHabitsStore } from "../../habits/habits.store";
+import { useAcademyStore } from "../../academy/academy.store";
 
+import {
+  getPlannerCandidates,
+} from "../planner.candidates";
 interface Props {
   date: string;
 }
@@ -67,7 +73,41 @@ export function PlannerSchedulePreview({
   const blocks = usePlannerStore(
     (state) => state.blocks
   );
+const tasks = useTasksStore(
+  (state) => state.tasks
+);
 
+const habits = useHabitsStore(
+  (state) => state.habits
+);
+
+const courses = useAcademyStore(
+  (state) => state.courses
+);
+
+const progress = useAcademyStore(
+  (state) => state.progress
+);
+
+const candidates = useMemo(
+  () =>
+    getPlannerCandidates({
+      tasks,
+      habits,
+      courses,
+      progress,
+      blocks,
+      date,
+    }),
+  [
+    tasks,
+    habits,
+    courses,
+    progress,
+    blocks,
+    date,
+  ]
+);
   const [dayStart, setDayStart] =
     useState("08:00");
 
@@ -89,16 +129,15 @@ export function PlannerSchedulePreview({
     if (!validRange) return null;
 
     return generatePlannerSchedule(
-      blocks,
-      demoCandidates,
-      {
-        date,
-        dayStart,
-        dayEnd,
-        minimumBreakMinutes:
-          breakMinutes,
-      }
-    );
+  blocks,
+  candidates,
+  {
+    date,
+    dayStart,
+    dayEnd,
+    minimumBreakMinutes: breakMinutes,
+  }
+);
   }, [
     blocks,
     date,
@@ -266,11 +305,12 @@ export function PlannerSchedulePreview({
             </div>
           )}
 
-          <p className="sf-schedule-disclaimer">
-            Propuesta de demostración.
-            No se guarda ningún bloque
-            ni se modifica tu agenda.
-          </p>
+         {candidates.length === 0 && (
+  <div className="sf-schedule-empty">
+    No tienes actividades pendientes
+    elegibles para planificar este día.
+  </div>
+)}
         </>
       )}
     </section>
