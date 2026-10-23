@@ -27,6 +27,8 @@ import type {
   PlannerSource,
 } from "../features/planner/planner.types";
 
+import { PlannerAvailability } from "../features/planner/components/PlannerAvailability";
+
 import "./PlannerPage.css";
 
 function localDateKey(date: Date): string {
@@ -245,7 +247,7 @@ export function PlannerPage() {
           </div>
         </div>
       </section>
-
+      <PlannerAvailability date={selectedDate} />
       <section className="sf-card sf-planner-timeline">
         <div className="sf-planner-section-heading">
           <div>

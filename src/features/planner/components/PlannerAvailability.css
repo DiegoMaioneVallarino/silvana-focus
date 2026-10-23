@@ -1,0 +1,132 @@
+
+.sf-planner-availability {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+}
+
+.sf-planner-availability-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.sf-planner-availability-heading h2 {
+  margin: 7px 0 6px;
+  font-size: 19px;
+}
+
+.sf-planner-availability-heading p {
+  margin: 0;
+  color: #8193b5;
+  font-size: 13px;
+}
+
+.sf-planner-availability-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #873cff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+}
+
+.sf-planner-availability-settings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.sf-planner-availability-settings label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.sf-planner-availability-settings input {
+  padding: 10px 12px;
+  border: 1px solid #e8edf6;
+  border-radius: 10px;
+  background: white;
+  color: #172033;
+  font: inherit;
+}
+
+.sf-planner-availability-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.sf-planner-availability-stats > div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 15px;
+  border-radius: 12px;
+  background: #f7f8fc;
+}
+
+.sf-planner-availability-stats span {
+  color: #8193b5;
+  font-size: 12px;
+}
+
+.sf-planner-availability-stats strong {
+  font-size: 19px;
+}
+
+.sf-planner-availability-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.sf-planner-availability-slot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 13px 15px;
+  border: 1px solid #eee8fa;
+  border-radius: 11px;
+  background: #fcfaff;
+}
+
+.sf-planner-availability-slot > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sf-planner-availability-slot strong {
+  font-size: 13px;
+}
+
+.sf-planner-availability-slot span {
+  font-size: 12px;
+  color: #8193b5;
+}
+
+.sf-planner-availability-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #873cff;
+}
+
+.sf-planner-availability-error {
+  color: #d94d4d;
+  font-size: 12px;
+}
+
+@media (max-width: 600px) {
+  .sf-planner-availability-stats {
+    grid-template-columns: 1fr;
+  }
+}
