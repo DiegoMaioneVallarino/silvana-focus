@@ -14,7 +14,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { PlannerPriorityPreview } from "../features/planner/components/PlannerPriorityPreview";
-
+import { PlannerSchedulePreview } from "../features/planner/components/PlannerSchedulePreview";
 
 import { usePlannerStore } from "../features/planner/planner.store";
 import {
@@ -251,6 +251,8 @@ export function PlannerPage() {
       </section>
       <PlannerAvailability date={selectedDate} />
       <PlannerPriorityPreview date={selectedDate} />
+      <PlannerSchedulePreview date={selectedDate} />
+
       <section className="sf-card sf-planner-timeline">
         <div className="sf-planner-section-heading">
           <div>

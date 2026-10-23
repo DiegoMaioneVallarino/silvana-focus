@@ -1,0 +1,173 @@
+
+.sf-schedule-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+}
+
+.sf-schedule-preview-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.sf-schedule-preview-header h2 {
+  margin: 7px 0 6px;
+  font-size: 19px;
+}
+
+.sf-schedule-preview-header p {
+  margin: 0;
+  color: #8193b5;
+  font-size: 13px;
+}
+
+.sf-schedule-preview-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #873cff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+}
+
+.sf-schedule-generate {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  background: #873cff;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sf-schedule-settings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.sf-schedule-settings label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.sf-schedule-settings input {
+  padding: 10px 12px;
+  border: 1px solid #e8edf6;
+  border-radius: 10px;
+  background: white;
+  color: #172033;
+  font: inherit;
+}
+
+.sf-schedule-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.sf-schedule-stats span {
+  padding: 9px 12px;
+  border-radius: 9px;
+  background: #f7f8fc;
+  color: #66738c;
+  font-size: 12px;
+}
+
+.sf-schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sf-schedule-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  border: 1px solid #eee8fa;
+  border-radius: 12px;
+  background: #fcfaff;
+}
+
+.sf-schedule-time {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 135px;
+  color: #873cff;
+  font-size: 12px;
+}
+
+.sf-schedule-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sf-schedule-info strong {
+  font-size: 13px;
+}
+
+.sf-schedule-info span {
+  color: #8193b5;
+  font-size: 11px;
+}
+
+.sf-schedule-score {
+  color: #873cff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.sf-schedule-unscheduled {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #fff6eb;
+  color: #b66b13;
+  font-size: 12px;
+}
+
+.sf-schedule-empty,
+.sf-schedule-disclaimer,
+.sf-schedule-error {
+  margin: 0;
+  color: #8193b5;
+  font-size: 12px;
+}
+
+.sf-schedule-error {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #d94d4d;
+}
+
+@media (max-width: 700px) {
+  .sf-schedule-preview-header {
+    flex-direction: column;
+  }
+
+  .sf-schedule-item {
+    flex-wrap: wrap;
+  }
+
+  .sf-schedule-time {
+    min-width: auto;
+  }
+}
