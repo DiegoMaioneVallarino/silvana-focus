@@ -1,5 +1,5 @@
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import {
   Sparkles,
@@ -14,58 +14,34 @@ import {
   generatePlannerSchedule,
 } from "../planner.scheduler";
 
-import type {
-  PlannerCandidate,
-} from "../planner.priorities";
-
 import "./PlannerSchedulePreview.css";
 import { useTasksStore } from "../../tasks/tasks.store";
 import { useHabitsStore } from "../../habits/habits.store";
 import { useAcademyStore } from "../../academy/academy.store";
 
 import {
+  CheckCircle2,
+  Save,
+} from "lucide-react";
+
+import {
+  confirmPlannerSchedule,
+} from "../planner.confirm";
+
+import type {
+  ScheduledSuggestion,
+} from "../planner.scheduler";
+
+import {
+  timeToMinutes,
+  minutesToTime,
+} from "../planner.utils";
+import {
   getPlannerCandidates,
 } from "../planner.candidates";
 interface Props {
   date: string;
 }
-
-const demoCandidates: PlannerCandidate[] = [
-  {
-    id: "demo-task-1",
-    title: "Avanzar proyecto principal",
-    source: "task",
-    sourceId: "demo-task-1",
-    priority: "high",
-    durationMinutes: 90,
-    goalImportance: 5,
-  },
-  {
-    id: "demo-academy-1",
-    title: "Estudiar programación",
-    source: "academy",
-    sourceId: "demo-academy-1",
-    priority: "medium",
-    durationMinutes: 45,
-    goalImportance: 4,
-  },
-  {
-    id: "demo-habit-1",
-    title: "Ejercicio diario",
-    source: "habit",
-    sourceId: "demo-habit-1",
-    priority: "medium",
-    durationMinutes: 30,
-  },
-  {
-    id: "demo-task-2",
-    title: "Organizar archivos",
-    source: "task",
-    sourceId: "demo-task-2",
-    priority: "low",
-    durationMinutes: 20,
-  },
-];
 
 export function PlannerSchedulePreview({
   date,
@@ -124,7 +100,19 @@ const candidates = useMemo(
     /^\d{2}:\d{2}$/.test(dayStart) &&
     /^\d{2}:\d{2}$/.test(dayEnd) &&
     dayStart < dayEnd;
+const [selectedIds, setSelectedIds] =
+  useState<string[]>([]);
 
+const [editedTimes, setEditedTimes] =
+  useState<Record<string, string>>({});
+
+const [confirmationError, setConfirmationError] =
+  useState("");
+
+const [confirmationSuccess, setConfirmationSuccess] =
+  useState("");
+
+  
   const result = useMemo(() => {
     if (!validRange) return null;
 
@@ -140,6 +128,7 @@ const candidates = useMemo(
 );
   }, [
     blocks,
+    candidates,
     date,
     dayStart,
     dayEnd,
@@ -147,7 +136,70 @@ const candidates = useMemo(
     generation,
     validRange,
   ]);
+useEffect(() => {
+  setSelectedIds([]);
+  setEditedTimes({});
+  setConfirmationError("");
+  setConfirmationSuccess("");
+}, [result]);
 
+
+const selectedSuggestions: ScheduledSuggestion[] =
+  (result?.scheduled ?? [])
+    .filter((suggestion) =>
+      selectedIds.includes(
+        suggestion.candidate.id
+      )
+    )
+    .map((suggestion) => {
+      const startTime =
+        editedTimes[suggestion.candidate.id] ??
+        suggestion.startTime;
+
+      const startMinutes =
+        timeToMinutes(startTime);
+
+      const endTime =
+        Number.isFinite(startMinutes)
+          ? minutesToTime(
+              startMinutes +
+              suggestion.durationMinutes
+            )
+          : suggestion.endTime;
+
+      return {
+        ...suggestion,
+        startTime,
+        endTime,
+      };
+    });
+
+
+const handleConfirmSchedule = () => {
+  setConfirmationError("");
+  setConfirmationSuccess("");
+
+  const confirmation =
+    confirmPlannerSchedule(
+      selectedSuggestions
+    );
+
+  if (!confirmation.success) {
+    setConfirmationError(
+      confirmation.error ??
+      "No se pudo guardar la agenda."
+    );
+    return;
+  }
+
+  setConfirmationSuccess(
+    `${confirmation.createdBlockIds.length} ` +
+    "actividades añadidas al Planner."
+  );
+
+  setSelectedIds([]);
+  setEditedTimes({});
+};
   return (
     <section className="sf-card sf-schedule-preview">
       <header className="sf-schedule-preview-header">
@@ -245,54 +297,141 @@ const candidates = useMemo(
 
           {result.scheduled.length === 0 ? (
             <p className="sf-schedule-empty">
-              No encontramos espacio para
-              las actividades propuestas.
+              No encontramos espacio para las actividades propuestas.
             </p>
           ) : (
-            <div className="sf-schedule-list">
-              {result.scheduled.map(
-                (suggestion) => (
-                  <article
-                    key={suggestion.candidate.id}
-                    className="sf-schedule-item"
-                  >
-                    <div className="sf-schedule-time">
-                      <Clock3 size={15} />
+            <>
+              <div className="sf-schedule-list">
+  {result.scheduled.map((suggestion) => {
+    const id = suggestion.candidate.id;
 
-                      <strong>
-                        {suggestion.startTime}
-                        {" – "}
-                        {suggestion.endTime}
-                      </strong>
-                    </div>
+    const selected =
+      selectedIds.includes(id);
 
-                    <div className="sf-schedule-info">
-                      <strong>
-                        {suggestion.candidate.title}
-                      </strong>
+    const startTime =
+      editedTimes[id] ??
+      suggestion.startTime;
 
-                      <span>
-                        {
-                          suggestion.candidate
-                            .durationMinutes
-                        } min · Prioridad{" "}
-                        {
-                          suggestion.candidate
-                            .priority
-                        }
-                      </span>
-                    </div>
+    return (
+      <article
+        key={id}
+        className={`sf-schedule-item ${
+          selected ? "selected" : ""
+        }`}
+      >
+        <label className="sf-schedule-select">
+          <input
+            type="checkbox"
+            checked={selected}
+            onChange={(event) => {
+              setSelectedIds((current) =>
+                event.target.checked
+                  ? [...current, id]
+                  : current.filter(
+                      (item) => item !== id
+                    )
+              );
 
-                    <span className="sf-schedule-score">
-                      {suggestion.candidate.score}
-                      {" "}pts
-                    </span>
-                  </article>
-                )
-              )}
-            </div>
+              setConfirmationError("");
+              setConfirmationSuccess("");
+            }}
+          />
+        </label>
+
+        <div className="sf-schedule-info">
+          <strong>
+            {suggestion.candidate.title}
+          </strong>
+
+          <span>
+            {suggestion.durationMinutes} min
+            {" · "}
+            {suggestion.candidate.priority}
+          </span>
+
+          <div className="sf-schedule-edit-time">
+            <Clock3 size={14} />
+
+            <input
+              type="time"
+              value={startTime}
+              onChange={(event) => {
+                setEditedTimes((current) => ({
+                  ...current,
+                  [id]: event.target.value,
+                }));
+
+                setConfirmationError("");
+                setConfirmationSuccess("");
+              }}
+            />
+
+            <span>
+              Duración:
+              {" "}
+              {suggestion.durationMinutes} min
+            </span>
+          </div>
+        </div>
+
+        <span className="sf-schedule-score">
+          {suggestion.candidate.score} pts
+        </span>
+      </article>
+    );
+  })}
+</div>
+
+    <div className="sf-schedule-confirmation">
+      <div>
+        <strong>
+          {selectedIds.length} actividades seleccionadas
+        </strong>
+        <span>Revisa los horarios antes de guardar.</span>
+      </div>
+
+      <div className="sf-schedule-confirmation-actions">
+        <button
+          type="button"
+          className="sf-schedule-select-all"
+          onClick={() =>
+            setSelectedIds(
+              result.scheduled.map(
+                (item) => item.candidate.id
+              )
+            )
+          }
+        >
+          Seleccionar todas
+        </button>
+
+        <button
+          type="button"
+          className="sf-schedule-save"
+          disabled={selectedIds.length === 0}
+          onClick={handleConfirmSchedule}
+        >
+          <Save size={15} />
+          Confirmar horarios
+        </button>
+      </div>
+    </div>
+
+    {confirmationError && (
+      <div className="sf-schedule-confirm-error">
+        <AlertCircle size={16} />
+        {confirmationError}
+      </div>
+    )}
+
+    {confirmationSuccess && (
+      <div className="sf-schedule-confirm-success">
+        <CheckCircle2 size={16} />
+        {confirmationSuccess}
+      </div>
+    )}
+            </>
           )}
-
           {result.unscheduled.length > 0 && (
             <div className="sf-schedule-unscheduled">
               <AlertCircle size={16} />
