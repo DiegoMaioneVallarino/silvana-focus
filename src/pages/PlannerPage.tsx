@@ -33,6 +33,8 @@ import { PlannerAvailability } from "../features/planner/components/PlannerAvail
 
 import "./PlannerPage.css";
 
+import { PlannerPreferencesPanel } from "../features/planner/components/PlannerPreferencesPanel";
+
 function localDateKey(date: Date): string {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -251,6 +253,7 @@ export function PlannerPage() {
       </section>
       <PlannerAvailability date={selectedDate} />
       <PlannerPriorityPreview date={selectedDate} />
+      <PlannerPreferencesPanel />
       <PlannerSchedulePreview date={selectedDate} />
 
       <section className="sf-card sf-planner-timeline">

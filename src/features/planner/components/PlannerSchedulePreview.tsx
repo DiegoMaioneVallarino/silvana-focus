@@ -42,6 +42,9 @@ import {
 interface Props {
   date: string;
 }
+import {
+  usePlannerPreferencesStore,
+} from "../planner.preferences.store";
 
 export function PlannerSchedulePreview({
   date,
@@ -65,38 +68,28 @@ const progress = useAcademyStore(
   (state) => state.progress
 );
 
+const preferences = usePlannerPreferencesStore();
+const { days, breakMinutes, maxDailyMinutes } = preferences;
+
+const [year, month, day] = date.split("-").map(Number);
+const weekday = new Date(year, month - 1, day).getDay();
+const dayPreferences = days[weekday];
+const dayStart = dayPreferences?.startTime ?? "08:00";
+const dayEnd = dayPreferences?.endTime ?? "20:00";
+const dayEnabled = dayPreferences?.enabled ?? false;
+
 const candidates = useMemo(
-  () =>
-    getPlannerCandidates({
-      tasks,
-      habits,
-      courses,
-      progress,
-      blocks,
-      date,
-    }),
-  [
-    tasks,
-    habits,
-    courses,
-    progress,
-    blocks,
-    date,
-  ]
+  () => getPlannerCandidates({
+    tasks, habits, courses, progress, blocks, date, preferences,
+  }),
+  [tasks, habits, courses, progress, blocks, date, preferences]
 );
-  const [dayStart, setDayStart] =
-    useState("08:00");
-
-  const [dayEnd, setDayEnd] =
-    useState("20:00");
-
-  const [breakMinutes, setBreakMinutes] =
-    useState(10);
 
   const [generation, setGeneration] =
     useState(0);
 
   const validRange =
+    dayEnabled &&
     /^\d{2}:\d{2}$/.test(dayStart) &&
     /^\d{2}:\d{2}$/.test(dayEnd) &&
     dayStart < dayEnd;
@@ -124,6 +117,7 @@ const [confirmationSuccess, setConfirmationSuccess] =
     dayStart,
     dayEnd,
     minimumBreakMinutes: breakMinutes,
+    maxDailyMinutes,
   }
 );
   }, [
@@ -133,6 +127,8 @@ const [confirmationSuccess, setConfirmationSuccess] =
     dayStart,
     dayEnd,
     breakMinutes,
+    maxDailyMinutes,
+    dayEnabled,
     generation,
     validRange,
   ]);
@@ -140,7 +136,6 @@ useEffect(() => {
   setSelectedIds([]);
   setEditedTimes({});
   setConfirmationError("");
-  setConfirmationSuccess("");
 }, [result]);
 
 
@@ -220,61 +215,29 @@ const handleConfirmSchedule = () => {
         <button
           type="button"
           className="sf-schedule-generate"
-          onClick={() =>
-            setGeneration((value) => value + 1)
-          }
+          onClick={() => {
+            setConfirmationError("");
+            setConfirmationSuccess("");
+            setGeneration((value) => value + 1);
+          }}
         >
           <RefreshCw size={15} />
           Generar
         </button>
       </header>
 
-      <div className="sf-schedule-settings">
-        <label>
-          Desde
-          <input
-            type="time"
-            value={dayStart}
-            onChange={(event) =>
-              setDayStart(event.target.value)
-            }
-          />
-        </label>
-
-        <label>
-          Hasta
-          <input
-            type="time"
-            value={dayEnd}
-            onChange={(event) =>
-              setDayEnd(event.target.value)
-            }
-          />
-        </label>
-
-        <label>
-          Descanso (min)
-          <input
-            type="number"
-            min={0}
-            max={60}
-            value={breakMinutes}
-            onChange={(event) =>
-              setBreakMinutes(
-                Math.max(
-                  0,
-                  Number(event.target.value)
-                )
-              )
-            }
-          />
-        </label>
+      <div className="sf-schedule-stats">
+        <span>Jornada: {dayStart} – {dayEnd}</span>
+        <span>Descanso: {breakMinutes} min</span>
+        <span>Carga máxima: {maxDailyMinutes} min</span>
       </div>
 
       {!result ? (
         <p className="sf-schedule-error">
           <AlertCircle size={15} />
-          Selecciona un horario válido.
+          {!dayEnabled
+            ? "Este día está desactivado en tus preferencias."
+            : "Configura un horario válido para este día."}
         </p>
       ) : (
         <>

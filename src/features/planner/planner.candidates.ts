@@ -18,6 +18,10 @@ import type {
   PlannerCandidate,
 } from "./planner.priorities";
 
+import type {
+  PlannerPreferences,
+} from "./planner.preferences.store";
+
 export interface PlannerCandidateSources {
   tasks: Task[];
   habits: Habit[];
@@ -25,6 +29,7 @@ export interface PlannerCandidateSources {
   progress: Record<string, CourseProgress>;
   blocks: PlannerBlock[];
   date: string;
+  preferences: PlannerPreferences;
 }
 
 function getLocalDateKey(value: Date): string {
@@ -60,6 +65,7 @@ export function getPlannerCandidates({
   progress,
   blocks,
   date,
+  preferences,
 }: PlannerCandidateSources): PlannerCandidate[] {
   const candidates: PlannerCandidate[] = [];
 

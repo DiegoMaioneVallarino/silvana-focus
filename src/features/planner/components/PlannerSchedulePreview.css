@@ -171,3 +171,116 @@
     min-width: auto;
   }
 }
+
+.sf-schedule-item.selected {
+  border-color: #873cff;
+  background: #f8f3ff;
+}
+
+.sf-schedule-select input {
+  width: 17px;
+  height: 17px;
+  accent-color: #873cff;
+  cursor: pointer;
+}
+
+.sf-schedule-edit-time {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 7px;
+  color: #873cff;
+}
+
+.sf-schedule-edit-time input {
+  padding: 7px 9px;
+  border: 1px solid #e7dafa;
+  border-radius: 8px;
+  background: white;
+  color: #172033;
+  font: inherit;
+  font-size: 12px;
+}
+
+.sf-schedule-confirmation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 18px;
+  border-radius: 13px;
+  background: #f7f8fc;
+}
+
+.sf-schedule-confirmation > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sf-schedule-confirmation strong {
+  font-size: 13px;
+}
+
+.sf-schedule-confirmation span {
+  color: #8193b5;
+  font-size: 11px;
+}
+
+.sf-schedule-confirmation-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.sf-schedule-select-all,
+.sf-schedule-save {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 13px;
+  border: none;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sf-schedule-select-all {
+  background: white;
+  color: #66738c;
+  border: 1px solid #e8edf6;
+}
+
+.sf-schedule-save {
+  background: #873cff;
+  color: white;
+}
+
+.sf-schedule-save:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.sf-schedule-confirm-error,
+.sf-schedule-confirm-success {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+.sf-schedule-confirm-error {
+  background: #fff0f0;
+  color: #c74343;
+}
+
+.sf-schedule-confirm-success {
+  background: #ecfbf3;
+  color: #168c58;
+}

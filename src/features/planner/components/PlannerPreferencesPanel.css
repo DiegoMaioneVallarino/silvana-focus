@@ -1,0 +1,163 @@
+
+.sf-planner-preferences {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+}
+
+.sf-planner-preferences-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.sf-planner-preferences-header h2 {
+  margin: 7px 0 6px;
+  font-size: 19px;
+}
+
+.sf-planner-preferences-header p {
+  margin: 0;
+  font-size: 13px;
+  color: #8193b5;
+}
+
+.sf-planner-preferences-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #873cff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+}
+
+.sf-planner-preferences-toggle {
+  border: none;
+  border-radius: 10px;
+  background: #873cff;
+  color: #fff;
+  padding: 10px 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sf-planner-preferences-content {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.sf-planner-preferences-content h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+
+.sf-planner-preferences-days {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-top: 16px;
+}
+
+.sf-planner-preferences-day {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #edf0f6;
+  border-radius: 11px;
+}
+
+.sf-planner-preferences-day-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 115px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sf-planner-preferences-day-name input {
+  accent-color: #873cff;
+}
+
+.sf-planner-preferences-day > span {
+  color: #8193b5;
+  font-size: 12px;
+}
+
+.sf-planner-preferences-day input[type="time"],
+.sf-planner-preferences-numbers input {
+  padding: 9px 10px;
+  border: 1px solid #e8edf6;
+  border-radius: 8px;
+  background: #fff;
+  color: #172033;
+  font: inherit;
+  font-size: 12px;
+}
+
+.sf-planner-preferences-day input:disabled {
+  opacity: 0.45;
+}
+
+.sf-planner-preferences-warning {
+  width: 100%;
+  color: #d94d4d;
+  font-size: 11px;
+}
+
+.sf-planner-preferences-numbers {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.sf-planner-preferences-numbers > label {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.sf-planner-preferences-numbers > label > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sf-planner-preferences-numbers input {
+  width: 100%;
+  min-width: 0;
+}
+
+.sf-planner-preferences-reset {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid #e8edf6;
+  border-radius: 9px;
+  background: #fff;
+  color: #66738c;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .sf-planner-preferences-day-name {
+    width: 100%;
+  }
+
+  .sf-planner-preferences {
+    padding: 16px;
+  }
+}

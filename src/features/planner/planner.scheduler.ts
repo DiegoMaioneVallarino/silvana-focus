@@ -25,6 +25,7 @@ export interface PlannerSchedulerOptions {
   dayStart: string;
   dayEnd: string;
   minimumBreakMinutes?: number;
+  maxDailyMinutes?: number;
 }
 
 export interface ScheduledSuggestion {
@@ -52,6 +53,8 @@ export function generatePlannerSchedule(
     dayStart,
     dayEnd,
     minimumBreakMinutes = 10,
+    maxDailyMinutes = 360,
+
   } = options;
 
   const breakMinutes =
@@ -85,7 +88,20 @@ export function generatePlannerSchedule(
           `${block.source}:${block.sourceId}`
       )
   );
+const existingDailyMinutes = blocks
+  .filter(
+    (block) =>
+      block.date === date &&
+      block.status !== "skipped"
+  )
+  .reduce(
+    (total, block) =>
+      total + block.durationMinutes,
+    0
+  );
 
+let dailyScheduledMinutes =
+  existingDailyMinutes;
   for (const candidate of ranked) {
     const sourceKey =
       candidate.sourceId !== null
@@ -99,7 +115,14 @@ export function generatePlannerSchedule(
     ) {
       continue;
     }
-
+if (
+  dailyScheduledMinutes +
+    candidate.durationMinutes >
+  maxDailyMinutes
+) {
+  unscheduled.push(candidate);
+  continue;
+}
     const availability =
       getPlannerAvailability(
         temporaryBlocks,
@@ -138,7 +161,7 @@ export function generatePlannerSchedule(
     };
 
     scheduled.push(suggestion);
-
+dailyScheduledMinutes += required;
     if (sourceKey) {
       existingSourceKeys.add(sourceKey);
     }
