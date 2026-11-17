@@ -1,0 +1,187 @@
+
+.sf-sense-bubble-root {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.sf-sense-bubble-root > * {
+  pointer-events: auto;
+}
+
+.sf-sense-bubble-trigger {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  border: none;
+  border-radius: 50%;
+  background: #873cff;
+  color: #fff;
+  box-shadow: 0 8px 28px #873cff40;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.sf-sense-bubble-trigger:hover {
+  transform: scale(1.06);
+}
+
+.sf-sense-bubble-dot {
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  width: 11px;
+  height: 11px;
+  border: 2px solid white;
+  border-radius: 50%;
+  background: #29bd85;
+}
+
+.sf-sense-bubble-panel {
+  width: min(330px, calc(100vw - 32px));
+  max-height: min(520px, calc(100vh - 110px));
+  overflow-y: auto;
+  background: #fff;
+  color: #242236;
+  border: 1px solid #eee8f7;
+  border-radius: 18px;
+  box-shadow: 0 12px 45px #24113c20;
+}
+
+.sf-sense-bubble-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 18px;
+  border-bottom: 1px solid #f0edf5;
+}
+
+.sf-sense-bubble-header > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.sf-sense-bubble-header small,
+.sf-sense-bubble-recent small {
+  color: #873cff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+}
+
+.sf-sense-bubble-header strong {
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+
+.sf-sense-bubble-header > button {
+  border: none;
+  background: transparent;
+  color: #777;
+  cursor: pointer;
+}
+
+.sf-sense-bubble-content {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sf-sense-bubble-content p {
+  margin: 0;
+  color: #77718a;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.sf-sense-bubble-content button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 11px;
+  border: none;
+  border-radius: 10px;
+  background: #873cff;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sf-sense-bubble-content button.secondary {
+  background: #f3edff;
+  color: #873cff;
+}
+
+.sf-sense-bubble-content button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sf-sense-bubble-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  background: #f8f5ff;
+  border-radius: 12px;
+}
+
+.sf-sense-bubble-metric strong {
+  font-size: 25px;
+  color: #873cff;
+}
+
+.sf-sense-bubble-metric span {
+  font-size: 11px;
+  color: #7d748f;
+}
+
+.sf-sense-bubble-report,
+.sf-sense-bubble-recent {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.sf-sense-bubble-report label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.sf-sense-bubble-report input,
+.sf-sense-bubble-report select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px;
+  border: 1px solid #e7dff3;
+  border-radius: 9px;
+  background: white;
+  color: #242236;
+  font: inherit;
+}
+
+@media (max-width: 600px) {
+  .sf-sense-bubble-root {
+    right: 16px;
+    bottom: 16px;
+  }
+}

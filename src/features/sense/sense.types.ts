@@ -37,9 +37,19 @@ export interface SenseConstraints {
   targetEffectiveMinutes: number | null;
 }
 
+export interface SenseActivity {
+  id: string;
+  title: string;
+  blockId: string | null;
+  origin: "planner" | "spontaneous";
+  constraints: SenseConstraints;
+  createdAt: string;
+}
+
 export interface SenseSession {
   id: string;
   blockId: string;
+  activityId?: string;
   title: string;
   status: SenseSessionStatus;
   startedAt: string;
@@ -69,4 +79,18 @@ export interface SenseSessionReport {
   difficulty: number | null;
   notes: string;
   reportedAt: string;
+}
+
+export interface SenseRecovery {
+  sessionId: string;
+  lastConfirmedAt: string;
+  detectedAt: string;
+}
+
+export interface SenseActivityProgress {
+  activityId: string;
+  effectiveMinutes: number;
+  targetMinutes: number | null;
+  remainingMinutes: number | null;
+  sessionCount: number;
 }

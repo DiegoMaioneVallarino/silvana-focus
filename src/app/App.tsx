@@ -24,6 +24,10 @@ import { AcademyPage } from "../pages/AcademyPage";
 import { CoursePage } from "../pages/CoursePage";
 import { PlannerPage } from "../pages/PlannerPage";
 
+import {
+  SenseBubble,
+} from "../features/sense/components/SenseBubble";
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -84,21 +88,27 @@ export default function App() {
             element={<FinancesPage />}
           />
 
-         {/* Planeación */}
-          <Route path="planner" element={<PlannerPage />}
-          
+          {/* Planeación */}
+          <Route
+            path="planner"
+            element={<PlannerPage />}
           />
+
           {/* Academia */}
           <Route
             path="academy"
             element={<AcademyPage />}
           />
+
           <Route
-                path="academy/:courseId"
-                element={<CoursePage />}
-                />
+            path="academy/:courseId"
+            element={<CoursePage />}
+          />
         </Route>
       </Routes>
+
+      {/* Silvana Sense: interfaz global */}
+      <SenseBubble />
     </BrowserRouter>
   );
 }

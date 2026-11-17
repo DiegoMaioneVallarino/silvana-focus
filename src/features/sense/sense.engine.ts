@@ -4,6 +4,8 @@ import type {
   SenseEvent,
   SenseEventType,
   SensePauseReason,
+  SenseActivity,
+  SenseActivityProgress,
 } from "./sense.types";
 
 export function elapsedSeconds(
@@ -57,10 +59,7 @@ export function transitionSession(
       ...session,
       status: "paused",
       effectiveMinutes:
-        getEffectiveSeconds(
-          session,
-          timestamp
-        ) / 60,
+        getEffectiveSeconds(session, timestamp) / 60,
       activeSince: null,
       lastPauseReason: reason,
     };
@@ -90,10 +89,7 @@ export function transitionSession(
           ? "completed"
           : "abandoned",
       effectiveMinutes:
-        getEffectiveSeconds(
-          session,
-          timestamp
-        ) / 60,
+        getEffectiveSeconds(session, timestamp) / 60,
       activeSince: null,
       endedAt: timestamp,
     };
@@ -106,14 +102,50 @@ export function createSenseEvent(
   sessionId: string,
   type: SenseEventType,
   timestamp: string,
-  reason?: SensePauseReason
+  reason?: SensePauseReason,
+  source: SenseEvent["source"] = "user"
 ): SenseEvent {
   return {
     id: crypto.randomUUID(),
     sessionId,
     type,
     timestamp,
-    source: "user",
+    source,
     ...(reason ? { reason } : {}),
+  };
+}
+
+export function getActivityProgress(
+  activity: SenseActivity,
+  sessions: SenseSession[],
+  now = new Date().toISOString()
+): SenseActivityProgress {
+  const related = sessions.filter(
+    (session) =>
+      session.activityId === activity.id
+  );
+
+  const seconds = related.reduce(
+    (total, session) =>
+      total + getEffectiveSeconds(session, now),
+    0
+  );
+
+  const effectiveMinutes = seconds / 60;
+  const targetMinutes =
+    activity.constraints.targetEffectiveMinutes;
+
+  return {
+    activityId: activity.id,
+    effectiveMinutes,
+    targetMinutes,
+    remainingMinutes:
+      targetMinutes === null
+        ? null
+        : Math.max(
+            0,
+            targetMinutes - effectiveMinutes
+          ),
+    sessionCount: related.length,
   };
 }
